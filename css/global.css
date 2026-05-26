@@ -1,0 +1,325 @@
+/* ============================================================
+   GLOBAL DESIGN TOKENS & SHARED STYLES
+   Hotel Services Project — Universidad Mariano Gálvez
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap');
+
+/* ── Variables ── */
+:root {
+  --cream:        #F5F0E8;
+  --cream-light:  #FAFAF7;
+  --white:        #FFFFFF;
+  --bronze:       #A8895C;
+  --bronze-light: #C4A97A;
+  --bronze-dark:  #8A6F45;
+  --teal:         #2C4A3E;
+  --teal-light:   #3D6357;
+  --slate:        #4A4A4A;
+  --slate-light:  #7A7A7A;
+  --charcoal:     #1E1E1E;
+  --divider:      rgba(168, 137, 92, 0.25);
+
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body:    'Jost', sans-serif;
+
+  --spacing-xs:   0.5rem;
+  --spacing-sm:   1rem;
+  --spacing-md:   2rem;
+  --spacing-lg:   4rem;
+  --spacing-xl:   7rem;
+
+  --radius-sm:    4px;
+  --radius-md:    8px;
+
+  --transition:   all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-fast: all 0.2s ease;
+
+  --shadow-soft:  0 4px 32px rgba(44, 74, 62, 0.08);
+  --shadow-card:  0 8px 48px rgba(44, 74, 62, 0.12);
+}
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: var(--font-body);
+  font-weight: 300;
+  color: var(--slate);
+  background-color: var(--cream-light);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { display: block; max-width: 100%; }
+a  { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+
+/* ── Typography ── */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--charcoal);
+}
+
+h1 { font-size: clamp(2.8rem, 6vw, 5.5rem); letter-spacing: -0.01em; }
+h2 { font-size: clamp(2rem, 4vw, 3.5rem); }
+h3 { font-size: clamp(1.4rem, 2.5vw, 2rem); }
+h4 { font-size: 1.2rem; font-weight: 500; }
+
+p  { font-size: 1rem; font-weight: 300; color: var(--slate); }
+
+.label {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--bronze);
+}
+
+/* ── Shared Layout ── */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+.section {
+  padding: var(--spacing-xl) 0;
+}
+
+.section--alt {
+  background-color: var(--cream);
+}
+
+/* ── Shared Nav ── */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 1.5rem var(--spacing-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: var(--transition);
+}
+
+.nav.scrolled {
+  background: rgba(250, 250, 247, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--divider);
+  padding: 1rem var(--spacing-md);
+}
+
+.nav__logo {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--charcoal);
+  letter-spacing: 0.02em;
+}
+
+.nav__logo span {
+  color: var(--bronze);
+}
+
+.nav__links {
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.nav__links a {
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--slate);
+  transition: var(--transition-fast);
+  position: relative;
+}
+
+.nav__links a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px; left: 0;
+  width: 0; height: 1px;
+  background: var(--bronze);
+  transition: var(--transition-fast);
+}
+
+.nav__links a:hover { color: var(--bronze); }
+.nav__links a:hover::after { width: 100%; }
+
+.nav__back {
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--slate);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: var(--transition-fast);
+}
+.nav__back:hover { color: var(--bronze); }
+
+/* ── Shared Button ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2.5rem;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn--primary {
+  background: var(--teal);
+  color: var(--cream-light);
+}
+.btn--primary:hover {
+  background: var(--teal-light);
+  transform: translateY(-2px);
+}
+
+.btn--outline {
+  background: transparent;
+  color: var(--charcoal);
+  border: 1px solid var(--bronze);
+}
+.btn--outline:hover {
+  background: var(--bronze);
+  color: var(--white);
+}
+
+/* ── Decorative Divider ── */
+.divider-line {
+  width: 60px;
+  height: 1px;
+  background: var(--bronze);
+  margin: 1.5rem 0;
+}
+
+.divider-line--center {
+  margin: 1.5rem auto;
+}
+
+/* ── Section Header ── */
+.section-header {
+  margin-bottom: var(--spacing-lg);
+}
+
+.section-header--center {
+  text-align: center;
+}
+
+/* ── Cards ── */
+.card {
+  background: var(--white);
+  padding: var(--spacing-md);
+  border: 1px solid var(--divider);
+  transition: var(--transition);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-card);
+  transform: translateY(-4px);
+}
+
+/* ── Footer ── */
+.footer {
+  background: var(--charcoal);
+  color: var(--cream);
+  padding: var(--spacing-lg) 0 var(--spacing-md);
+}
+
+.footer__grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: var(--spacing-lg);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid rgba(245, 240, 232, 0.1);
+  margin-bottom: var(--spacing-md);
+}
+
+.footer__logo {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--cream-light);
+  margin-bottom: 1rem;
+}
+
+.footer__logo span { color: var(--bronze-light); }
+
+.footer__desc {
+  color: rgba(245, 240, 232, 0.6);
+  font-size: 0.9rem;
+  max-width: 300px;
+}
+
+.footer__heading {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--bronze-light);
+  margin-bottom: 1.5rem;
+}
+
+.footer__links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.footer__links a {
+  font-size: 0.9rem;
+  color: rgba(245, 240, 232, 0.6);
+  transition: var(--transition-fast);
+}
+
+.footer__links a:hover { color: var(--bronze-light); }
+
+.footer__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.78rem;
+  color: rgba(245, 240, 232, 0.35);
+}
+
+/* ── Animations ── */
+.fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-up-delay-1 { transition-delay: 0.1s; }
+.fade-up-delay-2 { transition-delay: 0.2s; }
+.fade-up-delay-3 { transition-delay: 0.3s; }
+.fade-up-delay-4 { transition-delay: 0.4s; }
+.fade-up-delay-5 { transition-delay: 0.5s; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .nav__links { display: none; }
+  .footer__grid { grid-template-columns: 1fr; gap: var(--spacing-md); }
+  .footer__bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+}

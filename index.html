@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Éleven Hotel Services — Servicios Profesionales Hoteleros</title>
+  <link rel="stylesheet" href="css/global.css" />
+  <style>
+    /* ── Hero ── */
+    .hero {
+      height: 100vh;
+      min-height: 680px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      background: var(--charcoal);
+      overflow: hidden;
+    }
+
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 50%, rgba(44, 74, 62, 0.35) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 80% at 10% 80%, rgba(168, 137, 92, 0.12) 0%, transparent 50%);
+    }
+
+    .hero__grain {
+      position: absolute;
+      inset: 0;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 200px;
+    }
+
+    .hero__line {
+      position: absolute;
+      top: 0; bottom: 0;
+      left: 58%;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(168,137,92,0.3), transparent);
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--spacing-md);
+    }
+
+    .hero__eyebrow {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--bronze-light);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease 0.2s forwards;
+    }
+
+    .hero__eyebrow::before {
+      content: '';
+      width: 40px; height: 1px;
+      background: var(--bronze-light);
+    }
+
+    .hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 7vw, 6.5rem);
+      font-weight: 300;
+      color: var(--cream-light);
+      line-height: 1.05;
+      max-width: 700px;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeInUp 0.9s ease 0.4s forwards;
+    }
+
+    .hero__title em {
+      font-style: italic;
+      color: var(--bronze-light);
+    }
+
+    .hero__desc {
+      font-size: 1rem;
+      font-weight: 300;
+      color: rgba(245, 240, 232, 0.65);
+      max-width: 460px;
+      line-height: 1.8;
+      margin-bottom: 3rem;
+      opacity: 0;
+      animation: fadeInUp 0.9s ease 0.6s forwards;
+    }
+
+    .hero__actions {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      opacity: 0;
+      animation: fadeInUp 0.9s ease 0.8s forwards;
+    }
+
+    .hero__scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(245, 240, 232, 0.35);
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    .hero__scroll-line {
+      width: 1px; height: 48px;
+      background: linear-gradient(to bottom, rgba(168,137,92,0.5), transparent);
+    }
+
+    /* ── Intro strip ── */
+    .intro-strip {
+      background: var(--teal);
+      padding: 3rem var(--spacing-md);
+    }
+
+    .intro-strip__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--spacing-md);
+    }
+
+    .intro-strip__text {
+      font-family: var(--font-display);
+      font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+      font-style: italic;
+      color: var(--cream-light);
+      max-width: 600px;
+    }
+
+    .intro-strip__stat {
+      text-align: center;
+      color: var(--cream-light);
+    }
+
+    .intro-strip__number {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: 300;
+      color: var(--bronze-light);
+      display: block;
+    }
+
+    .intro-strip__label {
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(245, 240, 232, 0.55);
+    }
+
+    /* ── About section ── */
+    .about__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-lg);
+      align-items: center;
+    }
+
+    .about__visual {
+      position: relative;
+    }
+
+    .about__visual-main {
+      width: 100%;
+      aspect-ratio: 4/5;
+      background: var(--teal);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about__visual-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 30% 70%, rgba(168,137,92,0.2), transparent 60%);
+    }
+
+    .about__visual-text {
+      font-family: var(--font-display);
+      font-size: 6rem;
+      font-weight: 300;
+      color: rgba(245,240,232,0.08);
+      position: absolute;
+      bottom: -1rem;
+      right: -1rem;
+      line-height: 1;
+    }
+
+    .about__visual-badge {
+      position: absolute;
+      bottom: -1.5rem;
+      right: -1.5rem;
+      background: var(--bronze);
+      color: var(--white);
+      padding: 1.5rem;
+      text-align: center;
+      width: 130px;
+      height: 130px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .about__visual-badge strong {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 400;
+      display: block;
+      line-height: 1;
+    }
+
+    .about__visual-badge span {
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .about__content { padding-left: var(--spacing-md); }
+
+    .about__list {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .about__list-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--divider);
+    }
+
+    .about__list-icon {
+      width: 36px; height: 36px;
+      border: 1px solid var(--bronze);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--bronze);
+      font-size: 0.9rem;
+    }
+
+    /* ── Services Grid ── */
+    .services__intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-lg);
+      align-items: end;
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .services__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+      gap: 1.5px;
+      background: var(--divider);
+    }
+
+    .service-card {
+      background: var(--cream-light);
+      padding: 2.5rem 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--bronze);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: var(--transition);
+    }
+
+    .service-card:hover::before { transform: scaleX(1); }
+
+    .service-card:hover {
+      background: var(--white);
+      box-shadow: var(--shadow-card);
+      z-index: 2;
+    }
+
+    .service-card__number {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      font-weight: 300;
+      color: rgba(168,137,92,0.15);
+      line-height: 1;
+      margin-bottom: 1.5rem;
+      transition: var(--transition);
+    }
+
+    .service-card:hover .service-card__number {
+      color: rgba(168,137,92,0.35);
+    }
+
+    .service-card__title {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--charcoal);
+      margin-bottom: 0.75rem;
+    }
+
+    .service-card__desc {
+      font-size: 0.88rem;
+      color: var(--slate-light);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .service-card__link {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--bronze);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: var(--transition-fast);
+    }
+
+    .service-card__link::after {
+      content: '→';
+      transition: var(--transition-fast);
+    }
+
+    .service-card:hover .service-card__link::after {
+      transform: translateX(4px);
+    }
+
+    /* ── Process section ── */
+    .process__steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      position: relative;
+    }
+
+    .process__steps::before {
+      content: '';
+      position: absolute;
+      top: 2.5rem;
+      left: 12.5%;
+      right: 12.5%;
+      height: 1px;
+      background: var(--divider);
+    }
+
+    .process-step {
+      text-align: center;
+      padding: var(--spacing-md);
+      position: relative;
+    }
+
+    .process-step__dot {
+      width: 48px; height: 48px;
+      border: 1px solid var(--bronze);
+      border-radius: 50%;
+      margin: 0 auto 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--cream-light);
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--bronze);
+      position: relative;
+      z-index: 1;
+    }
+
+    .process-step__title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .process-step__desc {
+      font-size: 0.85rem;
+      color: var(--slate-light);
+    }
+
+    /* ── CTA Section ── */
+    .cta-section {
+      background: var(--teal);
+      padding: var(--spacing-xl) 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: 'ÉLEVEN';
+      position: absolute;
+      font-family: var(--font-display);
+      font-size: 18rem;
+      font-weight: 300;
+      color: rgba(245,240,232,0.03);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .cta-section h2 {
+      color: var(--cream-light);
+      margin-bottom: 1rem;
+    }
+
+    .cta-section p {
+      color: rgba(245,240,232,0.65);
+      max-width: 480px;
+      margin: 0 auto 2.5rem;
+    }
+
+    /* ── Registration strip ── */
+    .registration {
+      background: var(--cream);
+      padding: var(--spacing-md) 0;
+      border-top: 1px solid var(--divider);
+      border-bottom: 1px solid var(--divider);
+    }
+
+    .registration__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--spacing-md);
+      display: flex;
+      gap: var(--spacing-lg);
+      align-items: center;
+    }
+
+    .registration__item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .registration__icon {
+      width: 40px; height: 40px;
+      border: 1px solid var(--bronze);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--bronze);
+      flex-shrink: 0;
+      font-size: 1rem;
+    }
+
+    .registration__label {
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--bronze);
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+
+    .registration__value {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--charcoal);
+    }
+
+    /* ── Animations ── */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(8px); }
+    }
+
+    @media (max-width: 900px) {
+      .about__grid, .services__intro { grid-template-columns: 1fr; }
+      .about__content { padding-left: 0; }
+      .services__grid { grid-template-columns: 1fr 1fr; }
+      .process__steps { grid-template-columns: 1fr 1fr; }
+      .intro-strip__inner { flex-direction: column; align-items: flex-start; }
+      .registration__inner { flex-direction: column; }
+    }
+
+    @media (max-width: 600px) {
+      .services__grid, .process__steps { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav__logo">Éleven<span>.</span></div>
+    <div class="nav__links">
+      <a href="#nosotros">Nosotros</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#proceso">Proceso</a>
+      <a href="#registro">Registro</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__bg"></div>
+    <div class="hero__grain"></div>
+    <div class="hero__line"></div>
+    <div class="hero__content">
+      <p class="hero__eyebrow">Servicios Profesionales Hoteleros</p>
+      <h1 class="hero__title">
+        Excelencia en cada<br><em>área del hotel</em>
+      </h1>
+      <p class="hero__desc">
+        Soluciones integrales para la industria hotelera. Desde habitaciones hasta áreas verdes, gestionamos cada espacio con profesionalismo y precisión.
+      </p>
+      <div class="hero__actions">
+        <a href="#servicios" class="btn btn--primary">Explorar servicios</a>
+        <a href="#nosotros" class="btn btn--outline" style="color:var(--cream-light); border-color:rgba(168,137,92,0.5);">Conocer más</a>
+      </div>
+    </div>
+    <div class="hero__scroll">
+      <div class="hero__scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- INTRO STRIP -->
+  <div class="intro-strip">
+    <div class="intro-strip__inner">
+      <p class="intro-strip__text">
+        "Transformamos cada rincón del hotel en una experiencia memorable para sus huéspedes."
+      </p>
+      <div class="intro-strip__stat">
+        <span class="intro-strip__number">6</span>
+        <span class="intro-strip__label">Áreas especializadas</span>
+      </div>
+      <div class="intro-strip__stat">
+        <span class="intro-strip__number">01</span>
+        <span class="intro-strip__label">Empresa unificada</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section class="section" id="nosotros">
+    <div class="container">
+      <div class="about__grid">
+        <div class="about__visual fade-up">
+          <div class="about__visual-main">
+            <div class="about__visual-overlay"></div>
+            <div class="about__visual-text">XI</div>
+          </div>
+          <div class="about__visual-badge">
+            <strong>11</strong>
+            <span>Servicios disponibles</span>
+          </div>
+        </div>
+        <div class="about__content fade-up fade-up-delay-2">
+          <p class="label">Quiénes somos</p>
+          <div class="divider-line"></div>
+          <h2>Una empresa dedicada al hotel de alto nivel</h2>
+          <p style="margin-top:1.5rem;">
+            Éleven Hotel Services es una empresa de servicios especializados para la industria hotelera. Contamos con equipos expertos en cada área del hotel, garantizando estándares de calidad que elevan la experiencia de cada huésped.
+          </p>
+          <p style="margin-top:1rem;">
+            Nuestra estructura administrativa, basada en el proceso administrativo formal — Planeación, Organización, Dirección y Control — nos permite ofrecer resultados medibles y consistentes a cada establecimiento con el que trabajamos.
+          </p>
+          <ul class="about__list">
+            <li class="about__list-item">
+              <div class="about__list-icon">✦</div>
+              <div>
+                <h4>Gestión profesional integral</h4>
+                <p style="font-size:0.88rem; margin-top:0.25rem;">Equipos especializados por área, coordinados bajo un solo contrato de servicio.</p>
+              </div>
+            </li>
+            <li class="about__list-item">
+              <div class="about__list-icon">✦</div>
+              <div>
+                <h4>Supervisión y control continuo</h4>
+                <p style="font-size:0.88rem; margin-top:0.25rem;">Reportes periódicos, indicadores de desempeño y auditorías de calidad.</p>
+              </div>
+            </li>
+            <li class="about__list-item">
+              <div class="about__list-icon">✦</div>
+              <div>
+                <h4>Debidamente registrada</h4>
+                <p style="font-size:0.88rem; margin-top:0.25rem;">Empresa inscrita ante el Registro Mercantil y la SAT de Guatemala.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REGISTRATION -->
+  <div class="registration" id="registro">
+    <div class="registration__inner">
+      <div class="registration__item fade-up">
+        <div class="registration__icon">§</div>
+        <div>
+          <span class="registration__label">Registro Mercantil</span>
+          <span class="registration__value">No. RM-2026-XXXXXX</span>
+        </div>
+      </div>
+      <div class="registration__item fade-up fade-up-delay-1">
+        <div class="registration__icon">◈</div>
+        <div>
+          <span class="registration__label">NIT — SAT Guatemala</span>
+          <span class="registration__value">XXXX-XXXX-XXXX-X</span>
+        </div>
+      </div>
+      <div class="registration__item fade-up fade-up-delay-2">
+        <div class="registration__icon">⊕</div>
+        <div>
+          <span class="registration__label">Razón social</span>
+          <span class="registration__value">Éleven Hotel Services, S.A.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section class="section section--alt" id="servicios">
+    <div class="container">
+      <div class="services__intro">
+        <div class="fade-up">
+          <p class="label">Lo que ofrecemos</p>
+          <div class="divider-line"></div>
+          <h2>Seis áreas. Una sola empresa.</h2>
+        </div>
+        <div class="fade-up fade-up-delay-2">
+          <p>Cada equipo está especializado en su área dentro del hotel. Seleccione el departamento que desea conocer para descubrir los servicios detallados que podemos ofrecerle.</p>
+        </div>
+      </div>
+
+      <div class="services__grid">
+
+        <!-- Grupo 1 -->
+        <div class="service-card fade-up" onclick="window.location.href='html/grupo1.html'">
+          <div class="service-card__number">01</div>
+          <h3 class="service-card__title">Habitaciones</h3>
+          <p class="service-card__desc">Gestión y mantenimiento integral de habitaciones. Housekeeping, control de calidad, preparación y supervisión del confort del huésped.</p>
+          <span class="service-card__link">Ver departamento</span>
+        </div>
+
+        <!-- Grupo 2 -->
+        <div class="service-card fade-up fade-up-delay-1" onclick="window.location.href='html/grupo2.html'">
+          <div class="service-card__number">02</div>
+          <h3 class="service-card__title">Recepción & Lobby</h3>
+          <p class="service-card__desc">Gestión del área de recepción, check-in y check-out, atención al huésped y coordinación de reservaciones con excelencia.</p>
+          <span class="service-card__link">Ver departamento</span>
+        </div>
+
+        <!-- Grupo 3 -->
+        <div class="service-card fade-up fade-up-delay-2" onclick="window.location.href='html/grupo3.html'">
+          <div class="service-card__number">03</div>
+          <h3 class="service-card__title">Restaurante</h3>
+          <p class="service-card__desc">Administración y operación de restaurante hotelero: menú, servicio, capacitación de personal, eventos y control de higiene alimentaria.</p>
+          <span class="service-card__link">Ver departamento</span>
+        </div>
+
+        <!-- Grupo 4 -->
+        <div class="service-card fade-up fade-up-delay-3" onclick="window.location.href='html/grupo4.html'">
+          <div class="service-card__number">04</div>
+          <h3 class="service-card__title">Cocina & Producción</h3>
+          <p class="service-card__desc">Producción gastronómica de alto estándar. Control de inventario, gestión de proveedores, higiene HACCP y formación culinaria.</p>
+          <span class="service-card__link">Ver departamento</span>
+        </div>
+
+        <!-- Grupo 5 -->
+        <div class="service-card fade-up fade-up-delay-4" onclick="window.location.href='html/grupo5.html'">
+          <div class="service-card__number">05</div>
+          <h3 class="service-card__title">Entretenimiento & Descanso</h3>
+          <p class="service-card__desc">Programación de actividades, gestión de espacios de bienestar, spa y zonas de descanso para una experiencia completa del huésped.</p>
+          <span class="service-card__link">Ver departamento</span>
+        </div>
+
+        <!-- Grupo 6 -->
+        <div class="service-card fade-up fade-up-delay-5" onclick="window.location.href='html/grupo6.html'">
+          <div class="service-card__number">06</div>
+          <h3 class="service-card__title">Área Verde & Piscina</h3>
+          <p class="service-card__desc">Mantenimiento de jardines tropicales, gestión de piscinas, sistemas de riego, recreación y animación al aire libre.</p>
+          <span class="service-card__link">Ver departamento</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section" id="proceso">
+    <div class="container">
+      <div class="section-header section-header--center fade-up">
+        <p class="label">Nuestra metodología</p>
+        <div class="divider-line divider-line--center"></div>
+        <h2>El proceso administrativo que nos rige</h2>
+      </div>
+      <div class="process__steps">
+        <div class="process-step fade-up">
+          <div class="process-step__dot">I</div>
+          <h3 class="process-step__title">Planeación</h3>
+          <p class="process-step__desc">Definimos objetivos, estrategias y presupuestos para cada área antes de iniciar operaciones.</p>
+        </div>
+        <div class="process-step fade-up fade-up-delay-1">
+          <div class="process-step__dot">II</div>
+          <h3 class="process-step__title">Organización</h3>
+          <p class="process-step__desc">Distribuimos funciones, asignamos roles y estructuramos equipos de trabajo por especialidad.</p>
+        </div>
+        <div class="process-step fade-up fade-up-delay-2">
+          <div class="process-step__dot">III</div>
+          <h3 class="process-step__title">Dirección</h3>
+          <p class="process-step__desc">Lideramos y supervisamos cada equipo para garantizar el cumplimiento de los estándares.</p>
+        </div>
+        <div class="process-step fade-up fade-up-delay-3">
+          <div class="process-step__dot">IV</div>
+          <h3 class="process-step__title">Control</h3>
+          <p class="process-step__desc">Verificamos resultados, medimos indicadores y aplicamos mejoras de forma continua.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="contacto">
+    <div class="container" style="position:relative; z-index:2;">
+      <div class="fade-up">
+        <p class="label" style="color:var(--bronze-light);">Contáctenos</p>
+        <div class="divider-line divider-line--center" style="background:var(--bronze-light);"></div>
+        <h2>¿Listo para elevar la experiencia de su hotel?</h2>
+        <p>Nuestros equipos están preparados para integrarse a su establecimiento y ofrecer resultados desde el primer día.</p>
+        <a href="mailto:info@elevenhotelservices.com" class="btn btn--outline" style="color:var(--cream-light); border-color:rgba(168,137,92,0.6); margin-top:0.5rem;">
+          Solicitar información
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__logo">Éleven<span>.</span></div>
+          <p class="footer__desc">Servicios profesionales para la industria hotelera de Guatemala. Calidad, disciplina y excelencia en cada área.</p>
+        </div>
+        <div>
+          <p class="footer__heading">Departamentos</p>
+          <ul class="footer__links">
+            <li><a href="html/grupo1.html">Habitaciones</a></li>
+            <li><a href="html/grupo2.html">Recepción & Lobby</a></li>
+            <li><a href="html/grupo3.html">Restaurante</a></li>
+            <li><a href="html/grupo4.html">Cocina & Producción</a></li>
+            <li><a href="html/grupo5.html">Entretenimiento</a></li>
+            <li><a href="html/grupo6.html">Área Verde & Piscina</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer__heading">Legal</p>
+          <ul class="footer__links">
+            <li><a href="#registro">Registro Mercantil</a></li>
+            <li><a href="#registro">NIT — SAT</a></li>
+            <li><a href="#nosotros">Sobre la empresa</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>© 2026 Éleven Hotel Services, S.A. — Guatemala</span>
+        <span>Universidad Mariano Gálvez — Proceso Administrativo</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/global.js"></script>
+</body>
+</html>
