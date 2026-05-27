@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cocina & Producción — Éleven Hotel Services</title>
+  <link rel="stylesheet" href="../css/global.css" />
+  <style>
+
+    /* ── Page Hero ── */
+    .page-hero {
+      height: 75vh;
+      min-height: 520px;
+      background: var(--charcoal);
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: var(--spacing-lg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero__bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 65% 70% at 75% 35%, rgba(168,137,92,0.22) 0%, transparent 60%),
+        radial-gradient(ellipse 45% 60% at 10% 85%, rgba(44,74,62,0.25) 0%, transparent 55%);
+    }
+
+    .page-hero__lines {
+      position: absolute;
+      inset: 0;
+      opacity: 0.035;
+      background-image:
+        repeating-linear-gradient(
+          0deg,
+          var(--bronze) 0px,
+          var(--bronze) 1px,
+          transparent 1px,
+          transparent 60px
+        );
+    }
+
+    .page-hero__number {
+      position: absolute;
+      right: var(--spacing-md);
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--font-display);
+      font-size: 20rem;
+      font-weight: 300;
+      color: rgba(245,240,232,0.03);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .page-hero__content {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 var(--spacing-md);
+      opacity: 0;
+      animation: fadeInUp 0.9s ease 0.3s forwards;
+    }
+
+    .page-hero__dept {
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--bronze-light);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .page-hero__dept::before {
+      content: '04';
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      color: var(--bronze);
+    }
+
+    .page-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 300;
+      color: var(--cream-light);
+      line-height: 1.05;
+      max-width: 680px;
+    }
+
+    .page-hero__title em {
+      font-style: italic;
+      color: var(--bronze-light);
+    }
+
+    /* ── Intro ── */
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-lg);
+      align-items: center;
+    }
+
+    .intro-visual {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 200px 200px;
+      gap: 4px;
+    }
+
+    .intro-visual__block {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .intro-visual__block:first-child {
+      grid-row: 1 / 3;
+      background: var(--teal);
+    }
+
+    .intro-visual__block:nth-child(2) { background: var(--charcoal); }
+    .intro-visual__block:nth-child(3) { background: linear-gradient(135deg, var(--bronze-dark), var(--bronze)); }
+
+    .intro-visual__icon {
+      font-size: 3.5rem;
+      color: rgba(245,240,232,0.1);
+    }
+
+    .intro-visual__block:first-child .intro-visual__icon {
+      font-size: 5rem;
+    }
+
+    .intro-visual__label {
+      position: absolute;
+      bottom: 0.75rem;
+      left: 0.75rem;
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.5);
+    }
+
+    /* ── Importance ── */
+    .importance-strip {
+      background: var(--teal);
+      padding: var(--spacing-xl) 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .importance-strip::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 35%;
+      background: rgba(30,30,30,0.2);
+      clip-path: polygon(0 0, 85% 0, 100% 100%, 0 100%);
+    }
+
+    .importance-strip__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: var(--spacing-md);
+      position: relative;
+      z-index: 1;
+    }
+
+    .importance-card {
+      padding: 2rem;
+      border-left: 1px solid rgba(168,137,92,0.3);
+    }
+
+    .importance-card__num {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: 300;
+      color: var(--bronze-light);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .importance-card__title {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      color: var(--cream-light);
+      margin-bottom: 0.75rem;
+    }
+
+    .importance-card__text {
+      font-size: 0.85rem;
+      color: rgba(245,240,232,0.6);
+      line-height: 1.75;
+    }
+
+    /* ── Services ── */
+    .services-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--divider);
+    }
+
+    .service-item {
+      background: var(--cream-light);
+      padding: 2rem 2.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      transition: var(--transition);
+    }
+
+    .service-item:hover { background: var(--white); }
+
+    .service-item__num {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--bronze);
+      line-height: 1;
+      flex-shrink: 0;
+      width: 3rem;
+    }
+
+    .service-item__content h4 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: var(--charcoal);
+      margin-bottom: 0.4rem;
+    }
+
+    .service-item__content p {
+      font-size: 0.85rem;
+      color: var(--slate-light);
+    }
+
+    /* ── Hygiene section ── */
+    .hygiene {
+      background: var(--cream);
+      padding: var(--spacing-xl) 0;
+    }
+
+    .hygiene__grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: var(--spacing-lg);
+      align-items: center;
+    }
+
+    .hygiene__pillars {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .hygiene-pillar {
+      background: var(--white);
+      padding: 1.5rem 2rem;
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+      border-left: 3px solid transparent;
+      transition: var(--transition);
+    }
+
+    .hygiene-pillar:hover {
+      border-left-color: var(--bronze);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hygiene-pillar__icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    .hygiene-pillar__title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--charcoal);
+      margin-bottom: 0.3rem;
+    }
+
+    .hygiene-pillar__text {
+      font-size: 0.83rem;
+      color: var(--slate-light);
+      line-height: 1.65;
+    }
+
+    .hygiene__aside {
+      background: var(--charcoal);
+      padding: 3rem 2.5rem;
+      color: var(--cream-light);
+    }
+
+    .hygiene__aside-quote {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-style: italic;
+      font-weight: 300;
+      line-height: 1.45;
+      margin-bottom: 2rem;
+    }
+
+    .hygiene__aside-note {
+      font-size: 0.8rem;
+      color: rgba(245,240,232,0.45);
+      line-height: 1.7;
+    }
+
+    /* ── Staff ── */
+    .staff-featured {
+      background: var(--teal);
+      padding: 3rem;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: var(--spacing-md);
+      align-items: center;
+      margin-bottom: 1px;
+    }
+
+    .staff-featured__avatar {
+      width: 90px; height: 90px;
+      border-radius: 50%;
+      border: 1px solid var(--bronze-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--bronze-light);
+      background: rgba(245,240,232,0.05);
+    }
+
+    .staff-featured__badge {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--bronze-light);
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+
+    .staff-featured__name {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--cream-light);
+      margin-bottom: 0.4rem;
+    }
+
+    .staff-featured__role {
+      font-size: 0.82rem;
+      color: rgba(245,240,232,0.6);
+    }
+
+    .staff-featured__desc {
+      font-size: 0.87rem;
+      color: rgba(245,240,232,0.65);
+      line-height: 1.75;
+      max-width: 560px;
+    }
+
+    .staff__grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1px;
+      background: var(--divider);
+    }
+
+    .staff-card {
+      background: var(--white);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .staff-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--bronze);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: var(--transition);
+    }
+
+    .staff-card:hover::before { transform: scaleX(1); }
+    .staff-card:hover { box-shadow: var(--shadow-card); z-index: 2; }
+
+    .staff-card__avatar {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      border: 1px solid var(--bronze);
+      margin: 0 auto 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: var(--bronze);
+      background: var(--cream);
+    }
+
+    .staff-card__name {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--charcoal);
+      margin-bottom: 0.3rem;
+    }
+
+    .staff-card__role {
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 0.75rem;
+    }
+
+    .staff-card__resp {
+      font-size: 0.78rem;
+      color: var(--slate-light);
+      line-height: 1.6;
+    }
+
+    /* ── Process ── */
+    .process-blocks {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--divider);
+    }
+
+    .process-block {
+      background: var(--cream-light);
+      padding: 2.5rem 2rem;
+      position: relative;
+    }
+
+    .process-block__accent {
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 40px;
+      background: var(--bronze);
+    }
+
+    .process-block__phase {
+      font-family: var(--font-display);
+      font-size: 4rem;
+      font-weight: 300;
+      color: rgba(168,137,92,0.12);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .process-block__title {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: var(--teal);
+      margin-bottom: 1rem;
+    }
+
+    .process-block__text {
+      font-size: 0.87rem;
+      color: var(--slate-light);
+      line-height: 1.75;
+    }
+
+    /* ── Gallery ── */
+    .gallery__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 220px 220px;
+      gap: 4px;
+    }
+
+    .gallery-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gallery-item:first-child {
+      grid-row: 1 / 3;
+      grid-column: 1 / 2;
+    }
+
+    .gallery-item__icon {
+      font-size: 3.5rem;
+      color: rgba(245,240,232,0.1);
+    }
+
+    .gallery-item:first-child .gallery-item__icon { font-size: 5rem; }
+
+    .gallery-item__label {
+      position: absolute;
+      bottom: 0.75rem;
+      left: 0.75rem;
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.5);
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from { opacity:0; transform:translateY(24px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+
+    @media (max-width: 1000px) {
+      .staff__grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 900px) {
+      .intro-grid        { grid-template-columns: 1fr; }
+      .importance-strip__grid { grid-template-columns: 1fr; }
+      .services-list     { grid-template-columns: 1fr; }
+      .hygiene__grid     { grid-template-columns: 1fr; }
+      .process-blocks    { grid-template-columns: 1fr 1fr; }
+      .gallery__grid     { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .gallery-item:first-child { grid-row: auto; grid-column: auto; }
+    }
+
+    @media (max-width: 600px) {
+      .staff__grid    { grid-template-columns: 1fr 1fr; }
+      .process-blocks { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a href="../index.html" class="nav__back">← Volver al inicio</a>
+    <div class="nav__logo">Éleven<span>.</span></div>
+    <div class="nav__links">
+      <a href="#introduccion">Introducción</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#higiene">Higiene</a>
+      <a href="#equipo">Equipo</a>
+      <a href="#proceso">Proceso</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <div class="page-hero__bg"></div>
+    <div class="page-hero__lines"></div>
+    <div class="page-hero__number">04</div>
+    <div class="page-hero__content">
+      <p class="page-hero__dept">Departamento de Cocina & Producción</p>
+      <h1 class="page-hero__title">
+        El corazón operativo<br>de la <em>gastronomía hotelera</em>
+      </h1>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="section" id="introduccion">
+    <div class="container">
+      <div class="intro-grid">
+        <div class="fade-up">
+          <p class="label">Introducción</p>
+          <div class="divider-line"></div>
+          <h2>Sin cocina, no hay hotel</h2>
+          <p style="margin-top:1.5rem;">
+            El área de cocina y producción de alimentos es el corazón operativo de cualquier hotel. Sin una cocina bien organizada y eficiente, ningún restaurante hotelero puede funcionar con éxito.
+          </p>
+          <p style="margin-top:1rem;">
+            Es en este espacio donde se planifican, preparan y controlan todos los alimentos que se sirven tanto a los huéspedes del hotel como en eventos, banquetes y servicios especiales.
+          </p>
+          <p style="margin-top:1rem;">
+            Nuestra empresa ofrece servicios especializados en la organización, administración y optimización del área de cocina hotelera, garantizando altos estándares de calidad, higiene, eficiencia y creatividad culinaria.
+          </p>
+          <div style="display:flex; gap:2rem; margin-top:2.5rem;">
+            <div>
+              <span style="font-family:var(--font-display); font-size:2.5rem; color:var(--bronze); display:block; line-height:1;">10</span>
+              <span style="font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--slate-light);">Servicios disponibles</span>
+            </div>
+            <div style="width:1px; background:var(--divider);"></div>
+            <div>
+              <span style="font-family:var(--font-display); font-size:2.5rem; color:var(--teal); display:block; line-height:1;">6</span>
+              <span style="font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--slate-light);">Especialistas en el equipo</span>
+            </div>
+          </div>
+        </div>
+        <div class="intro-visual fade-up fade-up-delay-2">
+          <div class="intro-visual__block">
+            <div class="intro-visual__icon">👨‍🍳</div>
+            <span class="intro-visual__label">Cocina profesional</span>
+          </div>
+          <div class="intro-visual__block">
+            <div class="intro-visual__icon">🍳</div>
+            <span class="intro-visual__label">Producción diaria</span>
+          </div>
+          <div class="intro-visual__block">
+            <div class="intro-visual__icon">🌡️</div>
+            <span class="intro-visual__label">Control de calidad</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMPORTANCE -->
+  <section class="importance-strip">
+    <div class="container">
+      <div class="section-header fade-up" style="margin-bottom:var(--spacing-md);">
+        <p class="label" style="color:var(--bronze-light);">Por qué importa</p>
+        <div class="divider-line" style="background:var(--bronze-light);"></div>
+        <h2 style="color:var(--cream-light);">Importancia del área de cocina</h2>
+      </div>
+      <div class="importance-strip__grid">
+        <div class="importance-card fade-up">
+          <div class="importance-card__num">01</div>
+          <h3 class="importance-card__title">Satisfacción y reputación</h3>
+          <p class="importance-card__text">Una buena experiencia gastronómica determina directamente la satisfacción del huésped, su probabilidad de regresar y las recomendaciones que hará del establecimiento.</p>
+        </div>
+        <div class="importance-card fade-up fade-up-delay-1">
+          <div class="importance-card__num">02</div>
+          <h3 class="importance-card__title">Rentabilidad del hotel</h3>
+          <p class="importance-card__text">Una cocina bien administrada controla los costos de materia prima, reduce el desperdicio de alimentos y optimiza los tiempos de producción, impactando directamente en la rentabilidad.</p>
+        </div>
+        <div class="importance-card fade-up fade-up-delay-2">
+          <div class="importance-card__num">03</div>
+          <h3 class="importance-card__title">Motor de todos los servicios</h3>
+          <p class="importance-card__text">La cocina hace posible el desayuno buffet, el servicio a la habitación, los eventos corporativos y los banquetes. Es el eje central de toda la operación de alimentos y bebidas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section section--alt" id="servicios">
+    <div class="container">
+      <div class="section-header fade-up">
+        <p class="label">Lo que ofrecemos</p>
+        <div class="divider-line"></div>
+        <h2>Servicios especializados en cocina hotelera</h2>
+      </div>
+      <div class="services-list">
+        <div class="service-item fade-up">
+          <span class="service-item__num">1</span>
+          <div class="service-item__content">
+            <h4>Organización y administración de cocina</h4>
+            <p>Gestión integral de la operación: personal, recursos, procesos y flujos de trabajo.</p>
+          </div>
+        </div>
+        <div class="service-item fade-up fade-up-delay-1">
+          <span class="service-item__num">2</span>
+          <div class="service-item__content">
+            <h4>Capacitación del personal</h4>
+            <p>Formación en técnicas culinarias, buenas prácticas de manufactura y protocolos de higiene.</p>
+          </div>
+        </div>
+        <div class="service-item fade-up fade-up-delay-2">
+          <span class="service-item__num">3</span>
+          <div class="service-item__content">
+            <h4>Diseño y planificación de menús</h4>
+            <p>Elaboración de cartas según temporada, tipo de huésped y perfil gastronómico del hotel.</p>
+          </div>
+        </div>
+        <div class="service-item fade-up fade-up-delay-3">
+          <span class="service-item__num">4</span>
+          <div class="service-item__content">
+            <h4>Control de costos, inventarios y compras</h4>
+            <p>Registro y seguimiento de entradas y salidas de materia prima, optimización de compras.</p>
+          </div>
+        </div>
+        <div class="service-item fade-up">
+          <span class="service-item__num">5</span>
+          <div class="service-item__content">
+            <h4>Implementación de normas sanitarias</h4>
+            <p>Protocolos de higiene y seguridad alimentaria conforme a normativas vigentes en Guatemala.</p>
+          </div>
+        </div>
+        <div class="service-item fade-up fade-up-delay-1">
+          <span class="service-item__num">6</span>
+          <div class="service-item__content">
+            <h4>Supervisión operativa diaria</h4>
+            <p>Control en tiempo real de la producción, tiempos de servicio y calidad de cada preparación.</p>
+          </div>
+        </div>
+        <div class="service-item fade-up fade-up-delay-2">
+          <span class="service-item__num">7</span>
+          <div class="service-item__content">
+            <h4>Planificación para eventos y banquetes</h4>
+            <p>Diseño de menús y coordinación de producción para eventos corporativos y celebraciones especiales.</p>
+          </div>
+        </div>
+        <div class="service-item fade-up fade-up-delay-3">
+          <span class="service-item__num">8</span>
+          <div class="service-item__content">
+            <h4>Tecnología para pedidos e inventario</h4>
+            <p>Implementación de sistemas digitales para agilizar la gestión de pedidos y control de stock.</p>
+          </div>
+        </div>
+        <div class="service-item fade-up">
+          <span class="service-item__num">9</span>
+          <div class="service-item__content">
+            <h4>Asesoría en diseño físico de cocina</h4>
+            <p>Consultoría sobre distribución de espacios, estaciones de trabajo y equipamiento profesional.</p>
+          </div>
+        </div>
+        <div class="service-item fade-up fade-up-delay-1">
+          <span class="service-item__num">10</span>
+          <div class="service-item__content">
+            <h4>Control de calidad en presentación</h4>
+            <p>Verificación de temperatura, presentación y estándares visuales en cada platillo antes del servicio.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HYGIENE -->
+  <section class="hygiene" id="higiene">
+    <div class="container">
+      <div class="hygiene__grid">
+        <div>
+          <div class="section-header fade-up">
+            <p class="label">Pilar fundamental</p>
+            <div class="divider-line"></div>
+            <h2>Higiene y seguridad alimentaria</h2>
+            <p style="margin-top:1.25rem; max-width:500px;">
+              Uno de los pilares fundamentales del área de cocina hotelera es el cumplimiento estricto de las normas de higiene. Una cocina higiénica protege la salud de los huéspedes y al hotel de sanciones sanitarias.
+            </p>
+          </div>
+          <div class="hygiene__pillars fade-up fade-up-delay-1" style="margin-top:2rem;">
+            <div class="hygiene-pillar">
+              <div class="hygiene-pillar__icon">🧼</div>
+              <div>
+                <h4 class="hygiene-pillar__title">Manipulación correcta de alimentos</h4>
+                <p class="hygiene-pillar__text">Desde la recepción de materia prima hasta el servicio final, cada etapa sigue protocolos estrictos de manipulación.</p>
+              </div>
+            </div>
+            <div class="hygiene-pillar">
+              <div class="hygiene-pillar__icon">🌡️</div>
+              <div>
+                <h4 class="hygiene-pillar__title">Control de cadena de frío</h4>
+                <p class="hygiene-pillar__text">Mantenimiento de temperaturas adecuadas en almacenamiento y cocción para garantizar la inocuidad de cada alimento.</p>
+              </div>
+            </div>
+            <div class="hygiene-pillar">
+              <div class="hygiene-pillar__icon">✨</div>
+              <div>
+                <h4 class="hygiene-pillar__title">Limpieza y desinfección periódica</h4>
+                <p class="hygiene-pillar__text">Protocolos de limpieza de equipos, superficies y utensilios con productos autorizados y frecuencias establecidas.</p>
+              </div>
+            </div>
+            <div class="hygiene-pillar">
+              <div class="hygiene-pillar__icon">📋</div>
+              <div>
+                <h4 class="hygiene-pillar__title">Buenas prácticas de manufactura</h4>
+                <p class="hygiene-pillar__text">Capacitación continua del personal en normas BPM conforme a la normativa sanitaria vigente en Guatemala.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="hygiene__aside fade-up fade-up-delay-2">
+          <blockquote class="hygiene__aside-quote">
+            "Una cocina higiénica no solo protege la salud del huésped — protege la reputación del hotel."
+          </blockquote>
+          <p class="hygiene__aside-note">
+            Nuestra empresa incluye como servicio prioritario la implementación y supervisión de protocolos de higiene conforme a las normativas sanitarias vigentes en Guatemala, garantizando operaciones libres de riesgo para el establecimiento y sus huéspedes.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STAFF -->
+  <section class="section" id="equipo">
+    <div class="container">
+      <div class="section-header section-header--center fade-up">
+        <p class="label">Nuestro equipo</p>
+        <div class="divider-line divider-line--center"></div>
+        <h2>Equipo de trabajo — Grupo 4</h2>
+        <p style="max-width:500px; margin:1rem auto 0;">Cada integrante tiene un rol específico dentro del área de cocina, con funciones y responsabilidades claramente definidas.</p>
+      </div>
+
+      <!-- Gerente featured -->
+      <div class="staff-featured fade-up" style="margin-top:var(--spacing-md);">
+        <div class="staff-featured__avatar">R</div>
+        <div>
+          <span class="staff-featured__badge">Gerente General del Área</span>
+          <h3 class="staff-featured__name">Rodolfo Porón</h3>
+          <p class="staff-featured__role">Gerente del Área de Cocina</p>
+        </div>
+        <div>
+          <p class="staff-featured__desc">
+            Responsable de la dirección general del área, toma de decisiones estratégicas, coordinación del equipo y supervisión del cumplimiento de objetivos operativos y administrativos.
+          </p>
+        </div>
+      </div>
+
+      <!-- Resto del equipo -->
+      <div class="staff__grid">
+        <div class="staff-card fade-up">
+          <div class="staff-card__avatar">S</div>
+          <h3 class="staff-card__name">Sergio Arriaga</h3>
+          <span class="staff-card__role">Sous Chef</span>
+          <p class="staff-card__resp">Asistente directo del gerente. Coordina las operaciones diarias y supervisa que los estándares de calidad se cumplan en cada servicio.</p>
+        </div>
+        <div class="staff-card fade-up fade-up-delay-1">
+          <div class="staff-card__avatar">E</div>
+          <h3 class="staff-card__name">Elder Thomas</h3>
+          <span class="staff-card__role">Chef de Partida</span>
+          <p class="staff-card__resp">Especialista a cargo de una sección específica. Responsable de la preparación y presentación de los platillos de su partida.</p>
+        </div>
+        <div class="staff-card fade-up fade-up-delay-2">
+          <div class="staff-card__avatar">E</div>
+          <h3 class="staff-card__name">Eliam Chávez</h3>
+          <span class="staff-card__role">Cocinero Principal</span>
+          <p class="staff-card__resp">Ejecuta la elaboración de platillos según recetas establecidas y apoya en la organización de estaciones y capacitación de ayudantes.</p>
+        </div>
+        <div class="staff-card fade-up fade-up-delay-3">
+          <div class="staff-card__avatar">J</div>
+          <h3 class="staff-card__name">José Amílcar</h3>
+          <span class="staff-card__role">Higiene & Calidad</span>
+          <p class="staff-card__resp">Vela por el cumplimiento de normas sanitarias. Supervisa limpieza y desinfección de equipos y lleva control de protocolos vigentes.</p>
+        </div>
+        <div class="staff-card fade-up fade-up-delay-4">
+          <div class="staff-card__avatar">G</div>
+          <h3 class="staff-card__name">Gerson Umul</h3>
+          <span class="staff-card__role">Inventario & Bodega</span>
+          <p class="staff-card__resp">Gestiona la recepción, almacenamiento y control de materia prima. Lleva registro de entradas y salidas y coordina las compras.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="section section--alt" id="galeria">
+    <div class="container">
+      <div class="section-header fade-up">
+        <p class="label">Galería</p>
+        <div class="divider-line"></div>
+        <h2>Nuestras instalaciones y servicios</h2>
+      </div>
+      <div class="gallery__grid fade-up">
+        <div class="gallery-item" style="background: linear-gradient(160deg, var(--charcoal) 0%, #2e2e2e 100%);">
+          <div class="gallery-item__icon">👨‍🍳</div>
+          <span class="gallery-item__label">Cocina en operación</span>
+        </div>
+        <div class="gallery-item" style="background: var(--teal);">
+          <div class="gallery-item__icon">🥗</div>
+          <span class="gallery-item__label">Producción gourmet</span>
+        </div>
+        <div class="gallery-item" style="background: var(--slate);">
+          <div class="gallery-item__icon">🍽️</div>
+          <span class="gallery-item__label">Presentación de platillos</span>
+        </div>
+        <div class="gallery-item" style="background: linear-gradient(135deg, var(--bronze-dark), var(--bronze));">
+          <div class="gallery-item__icon">📦</div>
+          <span class="gallery-item__label">Control de inventario</span>
+        </div>
+        <div class="gallery-item" style="background: var(--teal-light);">
+          <div class="gallery-item__icon">🎂</div>
+          <span class="gallery-item__label">Repostería y banquetes</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section" id="proceso">
+    <div class="container">
+      <div class="section-header section-header--center fade-up">
+        <p class="label">Metodología</p>
+        <div class="divider-line divider-line--center"></div>
+        <h2>Proceso administrativo aplicado</h2>
+      </div>
+      <div class="process-blocks" style="margin-top:var(--spacing-md);">
+        <div class="process-block fade-up">
+          <div class="process-block__accent"></div>
+          <div class="process-block__phase">I</div>
+          <h3 class="process-block__title">Planeación</h3>
+          <p class="process-block__text">Definición de objetivos de producción, elaboración del presupuesto para compras, programación de menús semanales o mensuales y proyección de la demanda según la ocupación del hotel.</p>
+        </div>
+        <div class="process-block fade-up fade-up-delay-1">
+          <div class="process-block__accent"></div>
+          <div class="process-block__phase">II</div>
+          <h3 class="process-block__title">Organización</h3>
+          <p class="process-block__text">Distribución del personal en sus estaciones de trabajo, asignación de funciones a cada miembro del equipo y organización del espacio físico para garantizar un flujo de trabajo eficiente y seguro.</p>
+        </div>
+        <div class="process-block fade-up fade-up-delay-2">
+          <div class="process-block__accent"></div>
+          <div class="process-block__phase">III</div>
+          <h3 class="process-block__title">Dirección</h3>
+          <p class="process-block__text">El Chef Ejecutivo y el Sous Chef lideran al equipo durante el servicio, motivan al personal, toman decisiones operativas en tiempo real y garantizan el cumplimiento de los estándares de calidad.</p>
+        </div>
+        <div class="process-block fade-up fade-up-delay-3">
+          <div class="process-block__accent"></div>
+          <div class="process-block__phase">IV</div>
+          <h3 class="process-block__title">Control</h3>
+          <p class="process-block__text">Verificación de calidad e inocuidad, control de temperaturas de cocción y almacenamiento, revisión de inventario, seguimiento del costo de platillos y evaluación del desempeño del personal.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__logo">Éleven<span>.</span></div>
+          <p class="footer__desc">Servicios profesionales para la industria hotelera de Guatemala.</p>
+        </div>
+        <div>
+          <p class="footer__heading">Departamentos</p>
+          <ul class="footer__links">
+            <li><a href="grupo1.html">Habitaciones</a></li>
+            <li><a href="grupo2.html">Recepción & Lobby</a></li>
+            <li><a href="grupo3.html">Restaurante</a></li>
+            <li><a href="grupo4.html">Cocina & Producción</a></li>
+            <li><a href="grupo5.html">Entretenimiento</a></li>
+            <li><a href="grupo6.html">Área Verde & Piscina</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer__heading">Navegación</p>
+          <ul class="footer__links">
+            <li><a href="../index.html">Inicio</a></li>
+            <li><a href="../index.html#nosotros">Nosotros</a></li>
+            <li><a href="../index.html#registro">Registro Legal</a></li>
+            <li><a href="../index.html#contacto">Contacto</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>© 2026 Éleven Hotel Services, S.A. — Departamento de Cocina & Producción</span>
+        <span>Universidad Mariano Gálvez — Proceso Administrativo</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/global.js"></script>
+</body>
+</html>
