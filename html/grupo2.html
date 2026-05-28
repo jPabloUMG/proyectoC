@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lobby</title>
+  <link rel="stylesheet" href="../css/global.css" />
+  <style>
+
+    /* ── Page Hero ── */
+    .page-hero {
+      height: 75vh;
+      min-height: 520px;
+      background: var(--charcoal);
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: var(--spacing-lg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero__bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 65% 70% at 75% 35%, rgba(168,137,92,0.22) 0%, transparent 60%),
+        radial-gradient(ellipse 45% 60% at 10% 85%, rgba(44,74,62,0.25) 0%, transparent 55%);
+    }
+
+    .page-hero__lines {
+      position: absolute;
+      inset: 0;
+      opacity: 0.035;
+      background-image:
+        repeating-linear-gradient(
+          0deg,
+          var(--bronze) 0px,
+          var(--bronze) 1px,
+          transparent 1px,
+          transparent 60px
+        );
+    }
+
+    .page-hero__number {
+      position: absolute;
+      right: var(--spacing-md);
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--font-display);
+      font-size: 20rem;
+      font-weight: 300;
+      color: rgba(245,240,232,0.03);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .page-hero__content {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 var(--spacing-md);
+      opacity: 0;
+      animation: fadeInUp 0.9s ease 0.3s forwards;
+    }
+
+    .page-hero__dept {
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--bronze-light);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .page-hero__dept::before {
+      content: '02';
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      color: var(--bronze);
+    }
+
+    .page-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 300;
+      color: var(--cream-light);
+      line-height: 1.05;
+      max-width: 680px;
+    }
+
+    .page-hero__title em {
+      font-style: italic;
+      color: var(--bronze-light);
+    }
+
+    /* ── Intro ── */
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-lg);
+      align-items: center;
+    }
+
+    .intro-visual {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 200px 200px;
+      gap: 4px;
+    }
+
+    .intro-visual__block {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .intro-visual__block:first-child {
+      grid-row: 1 / 3;
+      background: var(--teal);
+    }
+
+    .intro-visual__block:nth-child(2) { background: var(--charcoal); }
+    .intro-visual__block:nth-child(3) { background: linear-gradient(135deg, var(--bronze-dark), var(--bronze)); }
+
+    .intro-visual__icon {
+      font-size: 3.5rem;
+      color: rgba(245,240,232,0.1);
+    }
+
+    .intro-visual__block:first-child .intro-visual__icon {
+      font-size: 5rem;
+    }
+
+    .intro-visual__label {
+      position: absolute;
+      bottom: 0.75rem;
+      left: 0.75rem;
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.5);
+    }
+
+    /* ── Importance ── */
+    .importance-strip {
+      background: var(--teal);
+      padding: var(--spacing-xl) 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .importance-strip::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 35%;
+      background: rgba(30,30,30,0.2);
+      clip-path: polygon(0 0, 85% 0, 100% 100%, 0 100%);
+    }
+
+    .importance-strip__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: var(--spacing-md);
+      position: relative;
+      z-index: 1;
+    }
+
+    .importance-card {
+      padding: 2rem;
+      border-left: 1px solid rgba(168,137,92,0.3);
+    }
+
+    .importance-card__num {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: 300;
+      color: var(--bronze-light);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .importance-card__title {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      color: var(--cream-light);
+      margin-bottom: 0.75rem;
+    }
+
+    .importance-card__text {
+      font-size: 0.85rem;
+      color: rgba(245,240,232,0.6);
+      line-height: 1.75;
+    }
+
+    /* ── Services ── */
+    .services-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--divider);
+    }
+
+    .service-item {
+      background: var(--cream-light);
+      padding: 2rem 2.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      transition: var(--transition);
+    }
+
+    .service-item:hover { background: var(--white); }
+
+    .service-item__num {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--bronze);
+      line-height: 1;
+      flex-shrink: 0;
+      width: 3rem;
+    }
+
+    .service-item__content h4 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: var(--charcoal);
+      margin-bottom: 0.4rem;
+    }
+
+    .service-item__content p {
+      font-size: 0.85rem;
+      color: var(--slate-light);
+    }
+
+    /* ── Hygiene section ── */
+    .hygiene {
+      background: var(--cream);
+      padding: var(--spacing-xl) 0;
+    }
+
+    .hygiene__grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: var(--spacing-lg);
+      align-items: center;
+    }
+
+    .hygiene__pillars {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .hygiene-pillar {
+      background: var(--white);
+      padding: 1.5rem 2rem;
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+      border-left: 3px solid transparent;
+      transition: var(--transition);
+    }
+
+    .hygiene-pillar:hover {
+      border-left-color: var(--bronze);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hygiene-pillar__icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    .hygiene-pillar__title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--charcoal);
+      margin-bottom: 0.3rem;
+    }
+
+    .hygiene-pillar__text {
+      font-size: 0.83rem;
+      color: var(--slate-light);
+      line-height: 1.65;
+    }
+
+    .hygiene__aside {
+      background: var(--charcoal);
+      padding: 3rem 2.5rem;
+      color: var(--cream-light);
+    }
+
+    .hygiene__aside-quote {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-style: italic;
+      font-weight: 300;
+      line-height: 1.45;
+      margin-bottom: 2rem;
+    }
+
+    .hygiene__aside-note {
+      font-size: 0.8rem;
+      color: rgba(245,240,232,0.45);
+      line-height: 1.7;
+    }
+
+    /* ── Staff ── */
+    .staff-featured {
+      background: var(--teal);
+      padding: 3rem;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: var(--spacing-md);
+      align-items: center;
+      margin-bottom: 1px;
+    }
+
+    .staff-featured__avatar {
+      width: 90px; height: 90px;
+      border-radius: 50%;
+      border: 1px solid var(--bronze-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--bronze-light);
+      background: rgba(245,240,232,0.05);
+    }
+
+    .staff-featured__badge {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--bronze-light);
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+
+    .staff-featured__name {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--cream-light);
+      margin-bottom: 0.4rem;
+    }
+
+    .staff-featured__role {
+      font-size: 0.82rem;
+      color: rgba(245,240,232,0.6);
+    }
+
+    .staff-featured__desc {
+      font-size: 0.87rem;
+      color: rgba(245,240,232,0.65);
+      line-height: 1.75;
+      max-width: 560px;
+    }
+
+    .staff__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--divider);
+    }
+
+    .staff-card {
+      background: var(--white);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .staff-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--bronze);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: var(--transition);
+    }
+
+    .staff-card:hover::before { transform: scaleX(1); }
+    .staff-card:hover { box-shadow: var(--shadow-card); z-index: 2; }
+
+    .staff-card__avatar {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      border: 1px solid var(--bronze);
+      margin: 0 auto 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: var(--bronze);
+      background: var(--cream);
+    }
+
+    .staff-card__name {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--charcoal);
+      margin-bottom: 0.3rem;
+    }
+
+    .staff-card__role {
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 0.75rem;
+    }
+
+    .staff-card__resp {
+      font-size: 0.78rem;
+      color: var(--slate-light);
+      line-height: 1.6;
+    }
+
+    /* ── Process ── */
+    .process-blocks {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--divider);
+    }
+
+    .process-block {
+      background: var(--cream-light);
+      padding: 2.5rem 2rem;
+      position: relative;
+    }
+
+    .process-block__accent {
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 40px;
+      background: var(--bronze);
+    }
+
+    .process-block__phase {
+      font-family: var(--font-display);
+      font-size: 4rem;
+      font-weight: 300;
+      color: rgba(168,137,92,0.12);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .process-block__title {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: var(--teal);
+      margin-bottom: 1rem;
+    }
+
+    .process-block__text {
+      font-size: 0.87rem;
+      color: var(--slate-light);
+      line-height: 1.75;
+    }
+
+    /* ── Gallery ── */
+    .gallery__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 220px 220px;
+      gap: 4px;
+    }
+
+    .gallery-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gallery-item:first-child {
+      grid-row: 1 / 3;
+      grid-column: 1 / 2;
+    }
+
+    .gallery-item__icon {
+      font-size: 3.5rem;
+      color: rgba(245,240,232,0.1);
+    }
+
+    .gallery-item:first-child .gallery-item__icon { font-size: 5rem; }
+
+    .gallery-item__label {
+      position: absolute;
+      bottom: 0.75rem;
+      left: 0.75rem;
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.5);
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from { opacity:0; transform:translateY(24px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+
+    @media (max-width: 1000px) {
+      .staff__grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 900px) {
+      .intro-grid        { grid-template-columns: 1fr; }
+      .importance-strip__grid { grid-template-columns: 1fr; }
+      .services-list     { grid-template-columns: 1fr; }
+      .hygiene__grid     { grid-template-columns: 1fr; }
+      .process-blocks    { grid-template-columns: 1fr 1fr; }
+      .gallery__grid     { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .gallery-item:first-child { grid-row: auto; grid-column: auto; }
+    }
+
+    @media (max-width: 600px) {
+      .staff__grid    { grid-template-columns: 1fr 1fr; }
+      .process-blocks { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <!--Inicio progra recepcion-->  
+  <!-- NAV -->
+  <nav class="nav">
+    <a href="../index.html" class="nav__back">← Volver al inicio</a>
+    <div class="nav__logo">Éleven<span>.</span></div>
+    <div class="nav__links">
+      <a href="#introduccion">Introducción</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#equipo">Equipo</a>
+      <!--a href="#higiene">Higiene</a-->
+      <a href="#proceso">Proceso Administrativo</a>
+    </div>
+  </nav>
+ 
+  <!-- HERO -->
+  <section class="page-hero">
+    <div class="page-hero__bg"></div>
+    <div class="page-hero__lines"></div>
+    <div class="page-hero__number">02</div>
+    <div class="page-hero__content">
+      <p class="page-hero__dept">Departamento de Recepción</p>
+      <h1 class="page-hero__title">
+            La comodidad y elegancia <br> comienzan <em>desde tu llegada</em>
+      </h1>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="section" id="introduccion">
+    <div class="container">
+      <div class="intro-grid">
+        <div class="fade-up">
+          <p class="label">Bienvenidos</p>
+          <div class="divider-line"></div>
+          <h2>El arte de recibirte</h2>
+          <p style="margin-top:1.5rem;">
+            Los techos altos y el mobiliario de diseño minimalista se fusionan para proyectar una imagen de sofisticación atemporal y orden impecable.
+          </p>
+          <p style="margin-top:1rem;">
+            Cada detalle decorativo ha sido seleccionado con precisión artística, logrando que la estancia sea tan acogedora como visualmente impactante y única.
+          </p>
+          <p style="margin-top:1rem;">
+            Este espacio no es solo una zona de paso, sino un refugio exclusivo que anticipa la excelencia de todo lo que está por venir.
+          </p>
+          <div style="display:flex; gap:2rem; margin-top:2.5rem;">
+            <div>
+              <span style="font-family:var(--font-display); font-size:2.5rem; color:var(--bronze); display:block; line-height:1;">6</span>
+              <span style="font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--slate-light);">Servicios disponibles</span>
+            </div>
+            <div style="width:1px; background:var(--divider);"></div>
+            <div>
+              <span style="font-family:var(--font-display); font-size:2.5rem; color:var(--teal); display:block; line-height:1;">4</span>
+              <span style="font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--slate-light);">Profesionales a la orden</span>
+            </div>
+          </div>
+        </div> 
+      </div>
+    </div>
+  </section>
+
+
+  <!-- SERVICES -->
+  <section class="section section--alt" id="servicios">
+    <div class="container">
+      <div class="section-header fade-up">
+        <p class="label">Conoce la atención de nuestro Lobby</p>
+        <div class="divider-line"></div>
+        <h2>Te brindamos los siguientes servicios</h2>
+      </div>
+      <div class="services-list">
+        <div class="service-item fade-up">
+          <span class="service-item__num">1</span>
+          <div class="service-item__content">
+            <h4>Recepción y Conserjeria</h4>
+            <p>Registro de entrada y salida, entrega de llaves, y atención al cliente multilingüe.</p>
+          </div>
+        </div>
+        <div class="service-item fade-up fade-up-delay-1">
+          <span class="service-item__num">2</span>
+          <div class="service-item__content">
+            <h4>Hospitalidad y Alimentos</h4>
+            <p>Cafetería, bar y servicio de aperitivos y comidas ligeras (conocidos como Lobby Bars).</p>
+          </div>
+        </div>
+        <div class="service-item fade-up fade-up-delay-2">
+          <span class="service-item__num">3</span>
+          <div class="service-item__content">
+            <h4>Business Center</h4>
+            <p>Zonas equipadas con Wi-Fi de alta velocidad, enchufes, estaciones de trabajo y áreas de reunión casual o "co-working"..</p>
+          </div>
+        </div>
+        <div class="service-item fade-up fade-up-delay-3">
+          <span class="service-item__num">4</span>
+          <div class="service-item__content">
+            <h4>Logística y Transporte</h4>
+            <p>Gestión de equipaje, servicio de botones, reserva de taxis o transporte privado, y venta de tours.</p>
+          </div>
+        </div>
+        <div class="service-item fade-up">
+          <span class="service-item__num">5</span>
+          <div class="service-item__content">
+            <h4>Áreas de Descanso y Comodidad</h4>
+            <p> Salas de espera, seguridad y climatización, y servicios de paquetería.</p>
+          </div>
+        </div>
+        <div class="service-item fade-up fade-up-delay-1">
+          <span class="service-item__num">6</span>
+          <div class="service-item__content">
+            <h4>Opiniones de Clientes</h4>
+            <p>Control en tiempo real de la producción, tiempos de servicio y calidad de cada preparación.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STAFF -->
+  <section class="section" id="equipo">
+    <div class="container">
+      <div class="section-header section-header--center fade-up">
+        <p class="label">Conoce a nuestro equipo</p>
+        <div class="divider-line divider-line--center"></div>
+        <h2>Grupo 2 - Lobby</h2>
+        <p style="max-width:500px; margin:1rem auto 0;">Cada miembro del equipo se describe por su capacidad estratégica para influir en las decisiones de las autoridades o administraciones públicas. Está compuesto por profesionales que buscan que la legislación o las políticas públicas beneficien a sus representados, basándose en el diálogo, la información</p>
+      </div>
+
+      <!-- Gerente featured -->
+      <div class="staff-featured fade-up" style="margin-top:var(--spacing-md);">
+        <div>
+          <h3 class="staff-featured__name">Weslley Gálvez</h3>
+          <span class="staff-featured__badge">Gerente General del Área</span>
+          <p class="staff-featured__role">Lobby & Recepción</p>
+        </div>
+        <!--div class="staff-featured__avatar">R</div-->
+        <div>
+          <p class="staff-featured__desc">
+            Encargado de garantizar la excelencia operativa, el servicio impecable y la armonía total entre los huéspedes y el espacio. </p>
+        </div>
+      </div>
+
+      <!-- Resto del equipo -->
+      <div class="staff__grid">
+        <div class="staff-card fade-up">
+          <div class="staff-card__avatar">Y</div>
+          <h3 class="staff-card__name">Yancarlo Mendoza</h3>
+          <span class="staff-card__role">Supervisor de Recepción</span>
+          <p class="staff-card__resp">Es el guardián de los estándares de servicio que coordina al equipo para resolver incidencias con agilidad y asegurar una atención al cliente impecable.</p>
+        </div>
+        <div class="staff-card fade-up fade-up-delay-1">
+          <div class="staff-card__avatar">J</div>
+          <h3 class="staff-card__name">Jonathan Poncio</h3>
+          <span class="staff-card__role">Recepcionista</span>
+          <p class="staff-card__resp">Es el embajador principal que transforma la primera impresión en una experiencia de bienvenida memorable mediante una gestión eficiente y una atención genuina.</p>
+        </div>
+        <div class="staff-card fade-up fade-up-delay-2">
+          <div class="staff-card__avatar">K</div>
+          <h3 class="staff-card__name">Kevin España</h3>
+          <span class="staff-card__role">Encargado de Seguridad</span>
+          <p class="staff-card__resp">Es el centinela estratégico que garantiza la integridad de las personas y el patrimonio, manteniendo un entorno seguro mediante la vigilancia discreta y el control de acceso.</p>
+        </div>
+       
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- PROCESS -->
+  <section class="section section--alt" id="proceso">
+    <div class="container">
+      <div class="section-header section-header--center fade-up">
+        <p class="label">Metodología</p>
+        <div class="divider-line divider-line--center"></div>
+        <h2>Proceso Administrativo en el Lobby</h2>
+      </div>
+      <div class="process-blocks" style="margin-top:var(--spacing-md);">
+        <div class="process-block fade-up">
+          <div class="process-block__accent"></div>
+          <div class="process-block__phase">I</div>
+          <h3 class="process-block__title">Planeación</h3>
+          <p class="process-block__text">Consiste en definir los objetivos de servicio y los protocolos de bienvenida,
+             anticipando las necesidades de los visitantes mediante una estrategia clara. En esta fase se establecen 
+             las metas de ocupación, los estándares de lujo y los planes de contingencia para que cada interacción en 
+             el lobby tenga un propósito definido.
+          </p>
+        </div>
+        <div class="process-block fade-up fade-up-delay-1">
+          <div class="process-block__accent"></div>
+          <div class="process-block__phase">II</div>
+          <h3 class="process-block__title">Organización</h3>
+          <p class="process-block__text">
+            Es la estructuración técnica de las funciones del personal y los recursos físicos, 
+            asignando tareas específicas a recepcionistas, botones y seguridad. Se definen las jerarquías y los 
+            canales de comunicación interna para que el flujo de personas y maletas sea eficiente, 
+            eliminando cualquier rastro de caos o desorden visual.
+          </p>
+        </div>
+        <div class="process-block fade-up fade-up-delay-2">
+          <div class="process-block__accent"></div>
+          <div class="process-block__phase">III</div>
+          <h3 class="process-block__title">Dirección</h3>
+          <p class="process-block__text">
+            Representa la ejecución de lo planeado a través del liderazgo activo, 
+            motivando al equipo para que mantenga una actitud hospitalaria y profesional en todo momento.
+            El gerente guía las operaciones diarias, toma decisiones en tiempo real ante imprevistos y orienta los esfuerzos 
+            individuales hacia la creación de una experiencia memorable para el cliente.
+          </p>
+        </div>
+        <div class="process-block fade-up fade-up-delay-3">
+          <div class="process-block__accent"></div>
+          <div class="process-block__phase">IV</div>
+          <h3 class="process-block__title">Control</h3>
+          <p class="process-block__text">
+            Es la fase de evaluación donde se comparan los resultados obtenidos con los estándares de calidad 
+            establecidos para corregir desviaciones. A través de auditorías de servicio, revisión de tiempos de 
+            espera y encuestas de satisfacción, 
+            se garantiza que la excelencia operativa sea constante y no solo un evento aislado.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__logo">Éleven<span>.</span></div>
+          <p class="footer__desc">Servicios profesionales para la industria hotelera de Guatemala.</p>
+        </div>
+        <div>
+          <p class="footer__heading">Departamentos</p>
+          <ul class="footer__links">
+            <li><a href="grupo1.html">Habitaciones</a></li>
+            <li><a href="grupo2.html">Recepción & Lobby</a></li>
+            <li><a href="grupo3.html">Restaurante</a></li>
+            <li><a href="grupo4.html">Cocina & Producción</a></li>
+            <li><a href="grupo5.html">Entretenimiento</a></li>
+            <li><a href="grupo6.html">Área Verde & Piscina</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer__heading">Navegación</p>
+          <ul class="footer__links">
+            <li><a href="../index.html">Inicio</a></li>
+            <li><a href="../index.html#nosotros">Nosotros</a></li>
+            <li><a href="../index.html#registro">Registro Legal</a></li>
+            <li><a href="../index.html#contacto">Contacto</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>© 2026 Éleven Hotel Services, S.A. — Departamento Recepción & Lobby</span>
+        <span>Universidad Mariano Gálvez — Proceso Administrativo</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/global.js"></script>
+</body>
+</html>
