@@ -557,44 +557,353 @@
   </section>
 
   <!-- STAFF -->
-  <section class="section" id="equipo">
-    <div class="container">
-      <div class="section-header section-header--center fade-up">
+ ```html
+<!-- STAFF -->
+<section class="section" id="equipo">
+
+  <style>
+
+    /* =========================
+       TEAM HERO
+    ========================== */
+
+    .team-hero{
+      margin-bottom:100px;
+      display:grid;
+      grid-template-columns:1.2fr 1fr;
+      gap:80px;
+      align-items:end;
+    }
+
+    .team-hero-left h2{
+      font-size:clamp(3rem, 6vw, 5.5rem);
+      line-height:1.05;
+      font-weight:400;
+      color:var(--charcoal);
+      max-width:700px;
+    }
+
+    .team-hero-right p{
+      color:var(--slate-light);
+      font-size:1rem;
+      line-height:1.9;
+      max-width:500px;
+    }
+
+    /* =========================
+       TEAM GRID
+    ========================== */
+
+    .team-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:2rem;
+    }
+
+    .team-card{
+      position:relative;
+      background:var(--white);
+      border:1px solid var(--divider);
+      padding:2.8rem;
+      overflow:hidden;
+      transition:0.45s ease;
+    }
+
+    .team-card:hover{
+      transform:translateY(-8px);
+      box-shadow:0 18px 40px rgba(0,0,0,0.07);
+      border-color:rgba(168,137,92,0.4);
+    }
+
+    .team-card::before{
+      content:'';
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:1px;
+      background:linear-gradient(
+        90deg,
+        transparent,
+        var(--bronze),
+        transparent
+      );
+      opacity:0;
+      transition:0.4s;
+    }
+
+    .team-card:hover::before{
+      opacity:1;
+    }
+
+    /* DESTACADO */
+
+    .team-card--leader{
+      background:linear-gradient(
+        135deg,
+        rgba(168,137,92,0.08),
+        rgba(255,255,255,1)
+      );
+      border:1px solid rgba(168,137,92,0.35);
+    }
+
+    .team-card--leader::after{
+      content:'Coordinador';
+      position:absolute;
+      top:30px;
+      right:-40px;
+      background:var(--bronze);
+      color:white;
+      padding:0.45rem 3rem;
+      transform:rotate(45deg);
+      font-size:0.65rem;
+      letter-spacing:0.18em;
+      text-transform:uppercase;
+    }
+
+    /* CONTENT */
+
+    .team-card__top{
+      display:flex;
+      align-items:center;
+      gap:1.2rem;
+      margin-bottom:2rem;
+    }
+
+    .team-card__avatar{
+      width:75px;
+      height:75px;
+      border-radius:50%;
+      border:1px solid var(--bronze);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-family:var(--font-display);
+      font-size:1.8rem;
+      color:var(--bronze);
+      background:var(--cream);
+      flex-shrink:0;
+    }
+
+    .team-card__name{
+      font-family:var(--font-display);
+      font-size:1.8rem;
+      color:var(--charcoal);
+      margin-bottom:0.3rem;
+    }
+
+    .team-card__role{
+      font-size:0.72rem;
+      letter-spacing:0.18em;
+      text-transform:uppercase;
+      color:var(--bronze);
+    }
+
+    .team-card__desc{
+      color:var(--slate-light);
+      line-height:1.9;
+      font-size:0.92rem;
+      max-width:500px;
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================== */
+
+    @media(max-width:900px){
+
+      .team-hero{
+        grid-template-columns:1fr;
+        gap:30px;
+      }
+
+      .team-grid{
+        grid-template-columns:1fr;
+      }
+
+    }
+
+  </style>
+
+  <div class="container">
+
+    <!-- HEADER -->
+    <div class="team-hero fade-up">
+
+      <div class="team-hero-left">
+
         <p class="label">Nuestro equipo</p>
-        <div class="divider-line divider-line--center"></div>
-        <h2>Equipo de trabajo-Grupo 3</h2>
-        <p style="max-width:500px; margin:1rem auto 0;">Cada puesto cumple una función precisa dentro de la operación para garantizar un servicio impecable.</p>
+
+        <div class="divider-line"></div>
+
+        <h2>
+          Un equipo construido para ofrecer excelencia en cada detalle.
+        </h2>
+
       </div>
-      <div class="staff__grid" style="margin-top:var(--spacing-md);">
-        <div class="staff-card fade-up">
-          <div class="staff-card__avatar">G</div>
-          <h3 class="staff-card__name">Fredyn López</h3>
-          <span class="staff-card__role">Dirección operativa</span>
-        </div>
-        <div class="staff-card fade-up fade-up-delay-1">
-          <div class="staff-card__avatar">C</div>
-          <h3 class="staff-card__name">Jenifer Girón</h3>
-          <span class="staff-card__role">Atencíon al cliente y capacitación</span>
-        </div>
-        <div class="staff-card fade-up fade-up-delay-2">
-          <div class="staff-card__avatar">M</div>
-          <h3 class="staff-card__name">Lourdes Tzunun</h3>
-          <span class="staff-card__role">Diseño de menú y eventos</span>
-        </div>
-        <div class="staff-card fade-up fade-up-delay-3">
-          <div class="staff-card__avatar">C</div>
-          <h3 class="staff-card__name">Maribel Tzoy</h3>
-          <span class="staff-card__role">Higiene y control de calidad</span>
-        </div>
-        <div class="staff-card fade-up fade-up-delay-4">
-          <div class="staff-card__avatar">L</div>
-          <h3 class="staff-card__name">Eliu</h3>
-          <span class="staff-card__role">Supervisión operativa & Tecnología-reservaciones</span>
-        </div>
-        
+
+      <div class="team-hero-right">
+
+        <p>
+          Cada integrante aporta habilidades específicas en organización,
+          servicio, supervisión y atención al cliente, trabajando de manera
+          coordinada para garantizar una operación eficiente y profesional.
+        </p>
+
       </div>
+
     </div>
-  </section>
+
+    <!-- TEAM -->
+    <div class="team-grid">
+
+      <!-- FREDYN -->
+      <div class="team-card team-card--leader fade-up">
+
+        <div class="team-card__top">
+
+          <div class="team-card__avatar">F</div>
+
+          <div>
+
+            <h3 class="team-card__name">
+              Fredyn López
+            </h3>
+
+            <span class="team-card__role">
+              Dirección operativa
+            </span>
+
+          </div>
+
+        </div>
+
+        <p class="team-card__desc">
+          Responsable de coordinar el proyecto, supervisar el equipo
+          y garantizar la correcta organización de cada proceso
+          operativo dentro del área de restaurante.
+        </p>
+
+      </div>
+
+      <!-- JENIFER -->
+      <div class="team-card fade-up fade-up-delay-1">
+
+        <div class="team-card__top">
+
+          <div class="team-card__avatar">J</div>
+
+          <div>
+
+            <h3 class="team-card__name">
+              Jenifer Girón
+            </h3>
+
+            <span class="team-card__role">
+              Atención y capacitación
+            </span>
+
+          </div>
+
+        </div>
+
+        <p class="team-card__desc">
+          Encargada de fortalecer la experiencia del cliente y apoyar
+          la capacitación del personal en protocolos de servicio.
+        </p>
+
+      </div>
+
+      <!-- LOURDES -->
+      <div class="team-card fade-up fade-up-delay-2">
+
+        <div class="team-card__top">
+
+          <div class="team-card__avatar">L</div>
+
+          <div>
+
+            <h3 class="team-card__name">
+              Lourdes Tzunun
+            </h3>
+
+            <span class="team-card__role">
+              Menú y eventos
+            </span>
+
+          </div>
+
+        </div>
+
+        <p class="team-card__desc">
+          Responsable del diseño gastronómico y planificación
+          de actividades y eventos especiales del restaurante.
+        </p>
+
+      </div>
+
+      <!-- MARIBEL -->
+      <div class="team-card fade-up fade-up-delay-3">
+
+        <div class="team-card__top">
+
+          <div class="team-card__avatar">M</div>
+
+          <div>
+
+            <h3 class="team-card__name">
+              Maribel Tzoy
+            </h3>
+
+            <span class="team-card__role">
+              Higiene y calidad
+            </span>
+
+          </div>
+
+        </div>
+
+        <p class="team-card__desc">
+          Supervisión de estándares sanitarios, limpieza y control
+          de calidad en cada proceso operativo.
+        </p>
+
+      </div>
+
+      <!-- ELIU -->
+      <div class="team-card fade-up fade-up-delay-4">
+
+        <div class="team-card__top">
+
+          <div class="team-card__avatar">E</div>
+
+          <div>
+
+            <h3 class="team-card__name">
+              Eliu
+            </h3>
+
+            <span class="team-card__role">
+              Tecnología y reservaciones
+            </span>
+
+          </div>
+
+        </div>
+
+        <p class="team-card__desc">
+          Gestión de herramientas digitales, supervisión operativa
+          y apoyo en sistemas de pedidos y reservaciones.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
 
   <!-- GALLERY -->
   <section class="section section--alt" id="galeria">
