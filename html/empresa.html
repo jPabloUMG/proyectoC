@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Constitución Legal — Éleven Hotel Services</title>
+  <link rel="stylesheet" href="../css/global.css" />
+  <style>
+
+    /* ── Hero ── */
+    .page-hero {
+      height: 65vh;
+      min-height: 480px;
+      background: var(--charcoal);
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: var(--spacing-lg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero__bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 55% 65% at 80% 30%, rgba(168,137,92,0.2) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 55% at 5% 85%, rgba(44,74,62,0.2) 0%, transparent 50%);
+    }
+
+    /* Diagonal decorative lines */
+    .page-hero__deco {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    .page-hero__deco::before,
+    .page-hero__deco::after {
+      content: '';
+      position: absolute;
+      background: rgba(168,137,92,0.06);
+    }
+
+    .page-hero__deco::before {
+      width: 1px;
+      top: 0; bottom: 0;
+      left: 60%;
+    }
+
+    .page-hero__deco::after {
+      height: 1px;
+      left: 0; right: 0;
+      top: 55%;
+    }
+
+    .page-hero__watermark {
+      position: absolute;
+      right: -2rem;
+      bottom: -3rem;
+      font-family: var(--font-display);
+      font-size: 18rem;
+      font-weight: 300;
+      color: rgba(245,240,232,0.025);
+      line-height: 1;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .page-hero__content {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 var(--spacing-md);
+      opacity: 0;
+      animation: fadeInUp 0.9s ease 0.3s forwards;
+    }
+
+    .page-hero__eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--bronze-light);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .page-hero__eyebrow::before {
+      content: '';
+      width: 40px; height: 1px;
+      background: var(--bronze-light);
+    }
+
+    .page-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 5.5vw, 5rem);
+      font-weight: 300;
+      color: var(--cream-light);
+      line-height: 1.05;
+      max-width: 680px;
+    }
+
+    .page-hero__title em {
+      font-style: italic;
+      color: var(--bronze-light);
+    }
+
+    /* ── Company summary strip ── */
+    .company-strip {
+      background: var(--teal);
+      padding: 2.5rem 0;
+      border-bottom: 1px solid rgba(168,137,92,0.2);
+    }
+
+    .company-strip__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--spacing-md);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+
+    .company-strip__item {
+      padding: 0 2rem;
+      border-right: 1px solid rgba(168,137,92,0.2);
+    }
+
+    .company-strip__item:first-child { padding-left: 0; }
+    .company-strip__item:last-child  { border-right: none; }
+
+    .company-strip__label {
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--bronze-light);
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+
+    .company-strip__value {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--cream-light);
+      line-height: 1.3;
+    }
+
+    /* ── Intro explainer ── */
+    .intro-explainer {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: var(--spacing-lg);
+      align-items: center;
+    }
+
+    .steps-overview {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border: 1px solid var(--divider);
+    }
+
+    .step-overview-item {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 1.25rem 1.75rem;
+      border-bottom: 1px solid var(--divider);
+      transition: var(--transition);
+      cursor: default;
+    }
+
+    .step-overview-item:last-child { border-bottom: none; }
+
+    .step-overview-item:hover {
+      background: var(--white);
+    }
+
+    .step-overview-item__num {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 300;
+      color: var(--bronze);
+      width: 2.5rem;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .step-overview-item__name {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      color: var(--charcoal);
+      flex: 1;
+    }
+
+    .step-overview-item__check {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--teal);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      color: var(--cream-light);
+      flex-shrink: 0;
+    }
+
+    /* ── Steps section ── */
+    .steps-section {
+      padding: var(--spacing-xl) 0;
+    }
+
+    .step-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-lg);
+      align-items: stretch;
+      margin-bottom: 4px;
+    }
+
+    .step-block:last-child { margin-bottom: 0; }
+
+    /* Alternate layout */
+    .step-block:nth-child(even) .step-block__info  { order: 2; }
+    .step-block:nth-child(even) .step-block__doc   { order: 1; }
+
+    .step-block__info {
+      padding: 3rem;
+      background: var(--cream-light);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+
+    .step-block__info::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 60px;
+      background: var(--bronze);
+    }
+
+    .step-block:nth-child(even) .step-block__info::before {
+      left: auto;
+      right: 0;
+    }
+
+    .step-block__step-num {
+      font-family: var(--font-display);
+      font-size: 5rem;
+      font-weight: 300;
+      color: rgba(168,137,92,0.1);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .step-block__phase {
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--bronze);
+      display: block;
+      margin-bottom: 0.75rem;
+    }
+
+    .step-block__title {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+      color: var(--charcoal);
+      margin-bottom: 1.25rem;
+      line-height: 1.2;
+    }
+
+    .step-block__text {
+      font-size: 0.9rem;
+      color: var(--slate);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .step-block__details {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .step-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.83rem;
+      color: var(--slate-light);
+    }
+
+    .step-detail::before {
+      content: '—';
+      color: var(--bronze);
+      flex-shrink: 0;
+      font-size: 0.7rem;
+      margin-top: 0.1rem;
+    }
+
+    /* ── Document card ── */
+    .step-block__doc {
+      background: var(--white);
+      border: 1px solid var(--divider);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .doc-card__header {
+      background: var(--charcoal);
+      padding: 2rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .doc-card__header::after {
+      content: '';
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 60%;
+      height: 100%;
+      background: rgba(168,137,92,0.06);
+      clip-path: polygon(30% 0, 100% 0, 100% 100%, 0% 100%);
+    }
+
+    .doc-card__type {
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--bronze-light);
+      display: block;
+      margin-bottom: 0.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .doc-card__title {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: var(--cream-light);
+      font-weight: 400;
+      position: relative;
+      z-index: 1;
+    }
+
+    .doc-card__body {
+      padding: 2rem 2.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .doc-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      padding-bottom: 0.85rem;
+      border-bottom: 1px solid var(--divider);
+    }
+
+    .doc-field:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .doc-field__label {
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--bronze);
+    }
+
+    .doc-field__value {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      color: var(--charcoal);
+      line-height: 1.3;
+    }
+
+    .doc-field__value--mono {
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 400;
+      color: var(--slate);
+      letter-spacing: 0.05em;
+    }
+
+    .doc-card__stamp {
+      margin: 0 2.5rem 2rem;
+      padding: 1rem 1.5rem;
+      background: var(--cream);
+      border-left: 3px solid var(--teal);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .doc-card__stamp-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .doc-card__stamp-text {
+      font-size: 0.78rem;
+      color: var(--teal);
+      font-weight: 400;
+      line-height: 1.5;
+    }
+
+    /* Status badge */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.3rem 0.9rem;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-radius: 2px;
+    }
+
+    .status-badge--active {
+      background: rgba(44,74,62,0.1);
+      color: var(--teal);
+      border: 1px solid rgba(44,74,62,0.2);
+    }
+
+    .status-badge--active::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--teal);
+    }
+
+    .status-badge--registered {
+      background: rgba(168,137,92,0.1);
+      color: var(--bronze-dark);
+      border: 1px solid rgba(168,137,92,0.25);
+    }
+
+    .status-badge--registered::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--bronze);
+    }
+
+    /* ── Capital section ── */
+    .capital-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--divider);
+      margin-top: var(--spacing-md);
+    }
+
+    .capital-card {
+      background: var(--cream-light);
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+
+    .capital-card__amount {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: var(--teal);
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .capital-card__label {
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--bronze);
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .capital-card__desc {
+      font-size: 0.82rem;
+      color: var(--slate-light);
+    }
+
+    /* ── Tax regimes ── */
+    .tax-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: var(--spacing-md);
+    }
+
+    .tax-card {
+      background: var(--white);
+      border: 1px solid var(--divider);
+      padding: 2rem;
+      transition: var(--transition);
+    }
+
+    .tax-card:hover {
+      border-color: var(--bronze);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .tax-card__icon {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .tax-card__title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--charcoal);
+      margin-bottom: 0.5rem;
+    }
+
+    .tax-card__regime {
+      font-size: 0.72rem;
+      color: var(--teal);
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      display: block;
+      margin-bottom: 0.75rem;
+    }
+
+    .tax-card__desc {
+      font-size: 0.82rem;
+      color: var(--slate-light);
+      line-height: 1.65;
+    }
+
+    /* ── Timeline connector ── */
+    .steps-connector {
+      display: flex;
+      justify-content: center;
+      padding: 1.5rem 0;
+      position: relative;
+    }
+
+    .steps-connector::before {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      left: 50%;
+      width: 1px;
+      background: var(--divider);
+    }
+
+    .steps-connector__dot {
+      width: 36px; height: 36px;
+      border: 1px solid var(--bronze);
+      border-radius: 50%;
+      background: var(--cream-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: var(--bronze);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── Invoice preview ── */
+    .invoice-preview {
+      border: 1px solid var(--divider);
+      overflow: hidden;
+    }
+
+    .invoice-preview__header {
+      background: var(--charcoal);
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .invoice-preview__logo {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      color: var(--cream-light);
+    }
+
+    .invoice-preview__logo span { color: var(--bronze-light); }
+
+    .invoice-preview__badge {
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.9rem;
+      border: 1px solid var(--bronze-light);
+      color: var(--bronze-light);
+    }
+
+    .invoice-preview__body {
+      padding: 2rem;
+    }
+
+    .invoice-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1.5rem;
+    }
+
+    .invoice-table th {
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--bronze);
+      text-align: left;
+      padding: 0.6rem 0.75rem;
+      border-bottom: 1px solid var(--divider);
+      font-weight: 400;
+    }
+
+    .invoice-table td {
+      font-size: 0.85rem;
+      color: var(--slate);
+      padding: 0.85rem 0.75rem;
+      border-bottom: 1px solid rgba(168,137,92,0.1);
+    }
+
+    .invoice-table tr:last-child td { border-bottom: none; }
+
+    .invoice-totals {
+      border-top: 1px solid var(--divider);
+      padding-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.4rem;
+    }
+
+    .invoice-total-row {
+      display: flex;
+      gap: 3rem;
+      font-size: 0.85rem;
+      color: var(--slate-light);
+    }
+
+    .invoice-total-row--final {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      color: var(--charcoal);
+      padding-top: 0.5rem;
+      border-top: 1px solid var(--divider);
+      margin-top: 0.25rem;
+    }
+
+    .invoice-total-row span:last-child { min-width: 80px; text-align: right; }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from { opacity:0; transform:translateY(24px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+
+    @media (max-width: 900px) {
+      .company-strip__inner { grid-template-columns: 1fr 1fr; }
+      .step-block           { grid-template-columns: 1fr; }
+      .step-block:nth-child(even) .step-block__info,
+      .step-block:nth-child(even) .step-block__doc { order: unset; }
+      .step-block__info::before { display: none; }
+      .capital-grid         { grid-template-columns: 1fr; }
+      .tax-grid             { grid-template-columns: 1fr; }
+      .intro-explainer      { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .company-strip__inner { grid-template-columns: 1fr; }
+      .company-strip__item  { border-right: none; border-bottom: 1px solid rgba(168,137,92,0.2); padding: 1rem 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a href="../index.html" class="nav__back">← Volver al inicio</a>
+    <div class="nav__logo">Éleven<span>.</span></div>
+    <div class="nav__links">
+      <a href="#paso1">Escritura</a>
+      <a href="#paso2">Registro Mercantil</a>
+      <a href="#paso3">SAT / RTU</a>
+      <a href="#paso4">Facturación</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <div class="page-hero__bg"></div>
+    <div class="page-hero__deco"></div>
+    <div class="page-hero__watermark">LEGAL</div>
+    <div class="page-hero__content">
+      <p class="page-hero__eyebrow">Constitución legal de la empresa</p>
+      <h1 class="page-hero__title">
+        Una empresa formalmente<br>constituida en <em>Guatemala</em>
+      </h1>
+    </div>
+  </section>
+
+  <!-- COMPANY STRIP -->
+  <div class="company-strip">
+    <div class="company-strip__inner">
+      <div class="company-strip__item">
+        <span class="company-strip__label">Razón Social</span>
+        <span class="company-strip__value">Éleven Hotel Services, S.A.</span>
+      </div>
+      <div class="company-strip__item">
+        <span class="company-strip__label">NIT — SAT</span>
+        <span class="company-strip__value">12345678-9</span>
+      </div>
+      <div class="company-strip__item">
+        <span class="company-strip__label">Registro Mercantil</span>
+        <span class="company-strip__value">RM-2026-XXXXXX</span>
+      </div>
+      <div class="company-strip__item">
+        <span class="company-strip__label">Fecha de Constitución</span>
+        <span class="company-strip__value">27 de mayo de 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- INTRO -->
+  <section class="section">
+    <div class="container">
+      <div class="intro-explainer">
+        <div class="fade-up">
+          <p class="label">Proceso de constitución</p>
+          <div class="divider-line"></div>
+          <h2>El orden legal para crear una empresa en Guatemala</h2>
+          <p style="margin-top:1.5rem;">
+            En Guatemala, constituir legalmente una empresa sigue un proceso ordenado ante distintas instituciones del Estado. Cada paso es requisito para el siguiente: no es posible inscribirse en la SAT sin primero existir ante el Registro Mercantil, y no se puede facturar sin estar inscrito tributariamente.
+          </p>
+          <p style="margin-top:1rem;">
+            A continuación se presenta la documentación oficial que acredita cada etapa del proceso de constitución de <strong>Éleven Hotel Services, S.A.</strong>
+          </p>
+        </div>
+        <div class="steps-overview fade-up fade-up-delay-2">
+          <div class="step-overview-item">
+            <span class="step-overview-item__num">1</span>
+            <span class="step-overview-item__name">Escritura Pública de Constitución</span>
+            <div class="step-overview-item__check">✓</div>
+          </div>
+          <div class="step-overview-item">
+            <span class="step-overview-item__num">2</span>
+            <span class="step-overview-item__name">Patente de Comercio — Registro Mercantil</span>
+            <div class="step-overview-item__check">✓</div>
+          </div>
+          <div class="step-overview-item">
+            <span class="step-overview-item__num">3</span>
+            <span class="step-overview-item__name">Inscripción RTU — SAT</span>
+            <div class="step-overview-item__check">✓</div>
+          </div>
+          <div class="step-overview-item">
+            <span class="step-overview-item__num">4</span>
+            <span class="step-overview-item__name">Habilitación FEL — Factura Electrónica</span>
+            <div class="step-overview-item__check">✓</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       PASO 1 — ESCRITURA DE CONSTITUCIÓN
+  ════════════════════════════════════════ -->
+  <div class="steps-connector"><div class="steps-connector__dot">1</div></div>
+
+  <section class="steps-section" id="paso1" style="padding-top:0;">
+    <div class="container">
+      <div class="step-block fade-up">
+
+        <div class="step-block__info">
+          <div class="step-block__step-num">01</div>
+          <span class="step-block__phase">Primer paso</span>
+          <h2 class="step-block__title">Escritura Pública de Constitución de Sociedad Anónima</h2>
+          <p class="step-block__text">
+            Todo comienza ante un Notario autorizado en Guatemala. Los socios fundadores comparecen para otorgar la Escritura Pública de Constitución, que da existencia jurídica formal a la empresa. Sin este instrumento, la sociedad no existe legalmente.
+          </p>
+          <div class="step-block__details">
+            <div class="step-detail">Redactada y autorizada por Notario público colegiado activo</div>
+            <div class="step-detail">Define: denominación social, objeto, domicilio y plazo de la empresa</div>
+            <div class="step-detail">Establece el capital autorizado, suscrito y la distribución de acciones</div>
+            <div class="step-detail">Nombra al Administrador Único y Representante Legal</div>
+            <div class="step-detail">Regida por el Código de Comercio de Guatemala</div>
+          </div>
+        </div>
+
+        <div class="step-block__doc">
+          <div class="doc-card__header">
+            <span class="doc-card__type">Documento oficial</span>
+            <h3 class="doc-card__title">Escritura Pública No. 1</h3>
+          </div>
+          <div class="doc-card__body">
+            <div class="doc-field">
+              <span class="doc-field__label">Denominación social</span>
+              <span class="doc-field__value">ÉLEVEN HOTEL SERVICES, SOCIEDAD ANÓNIMA</span>
+            </div>
+            <div class="doc-field">
+              <span class="doc-field__label">Objeto social</span>
+              <span class="doc-field__value">Prestación de servicios profesionales hoteleros: habitaciones, recepción, restaurante, cocina, entretenimiento y áreas verdes</span>
+            </div>
+            <div class="doc-field">
+              <span class="doc-field__label">Domicilio</span>
+              <span class="doc-field__value doc-field__value--mono">Departamento de Guatemala, República de Guatemala</span>
+            </div>
+            <div class="doc-field">
+              <span class="doc-field__label">Plazo de duración</span>
+              <span class="doc-field__value">Indefinido</span>
+            </div>
+            <div class="doc-field">
+              <span class="doc-field__label">Fecha de otorgamiento</span>
+              <span class="doc-field__value doc-field__value--mono">27 de mayo de 2026</span>
+            </div>
+            <div class="doc-field" style="border:none; padding:0;">
+              <span class="doc-field__label">Estado</span>
+              <span class="status-badge status-badge--active" style="margin-top:0.35rem;">Vigente</span>
+            </div>
+          </div>
+          <div class="doc-card__stamp">
+            <span class="doc-card__stamp-icon">⚖️</span>
+            <span class="doc-card__stamp-text">Instrumento autorizado conforme al Código de Comercio de Guatemala. Con firma y sello notarial.</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Capital social breakdown -->
+      <div class="fade-up" style="margin-top:4px;">
+        <div style="padding:2.5rem 3rem; background:var(--cream); border:1px solid var(--divider); margin-bottom:4px;">
+          <p class="label">Estructura de capital</p>
+          <div class="divider-line"></div>
+          <h3>Capital social de la sociedad</h3>
+        </div>
+        <div class="capital-grid">
+          <div class="capital-card">
+            <span class="capital-card__label">Capital Autorizado</span>
+            <span class="capital-card__amount">Q 100,000</span>
+            <p class="capital-card__desc">Dividido en 100 acciones comunes y nominativas de Q 1,000.00 cada una.</p>
+          </div>
+          <div class="capital-card">
+            <span class="capital-card__label">Capital Suscrito y Pagado</span>
+            <span class="capital-card__amount">Q 25,000</span>
+            <p class="capital-card__desc">25 acciones suscritas y pagadas íntegramente por los socios fundadores al momento de la constitución.</p>
+          </div>
+          <div class="capital-card">
+            <span class="capital-card__label">Valor por Acción</span>
+            <span class="capital-card__amount">Q 1,000</span>
+            <p class="capital-card__desc">Acciones comunes nominativas con valor nominal de un mil quetzales cada una.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       PASO 2 — REGISTRO MERCANTIL
+  ════════════════════════════════════════ -->
+  <div class="steps-connector"><div class="steps-connector__dot">2</div></div>
+
+  <section class="steps-section" id="paso2" style="padding-top:0; background:var(--cream);">
+    <div class="container">
+      <div class="step-block fade-up">
+
+        <div class="step-block__doc">
+          <div class="doc-card__header">
+            <span class="doc-card__type">Documento oficial</span>
+            <h3 class="doc-card__title">Patente de Comercio de Empresa</h3>
+          </div>
+          <div class="doc-card__body">
+            <div class="doc-field">
+              <span class="doc-field__label">Nombre comercial</span>
+              <span class="doc-field__value">ÉLEVEN HOTEL SERVICES</span>
+            </div>
+            <div class="doc-field">
+              <span class="doc-field__label">Propietario</span>
+              <span class="doc-field__value">ÉLEVEN HOTEL SERVICES, SOCIEDAD ANÓNIMA</span>
+            </div>
+            <div class="doc-field">
+              <span class="doc-field__label">Número de registro</span>
+              <span class="doc-field__value doc-field__value--mono">RM-2026-XXXXXX</span>
+            </div>
+            <div class="doc-field">
+              <span class="doc-field__label">Capital inscrito</span>
+              <span class="doc-field__value doc-field__value--mono">Q 25,000.00</span>
+            </div>
+            <div class="doc-field">
+              <span class="doc-field__label">Objeto</span>
+              <span class="doc-field__value">Prestación de servicios profesionales hoteleros</span>
+            </div>
+            <div class="doc-field">
+              <span class="doc-field__label">Dirección</span>
+              <span class="doc-field__value doc-field__value--mono">5ta Avenida 10-20, Zona 10, Ciudad de Guatemala</span>
+            </div>
+            <div class="doc-field">
+              <span class="doc-field__label">Fecha de inscripción</span>
+              <span class="doc-field__value doc-field__value--mono">27 de mayo de 2026</span>
+            </div>
+            <div class="doc-field" style="border:none; padding:0;">
+              <span class="doc-field__label">Estado</span>
+              <span class="status-badge status-badge--registered" style="margin-top:0.35rem;">Inscrita</span>
+            </div>
+          </div>
+          <div class="doc-card__stamp">
+            <span class="doc-card__stamp-icon">🏛️</span>
+            <span class="doc-card__stamp-text">Emitida por el Registrador Mercantil General de la República de Guatemala con firma y sello oficial.</span>
+          </div>
+        </div>
+
+        <div class="step-block__info">
+          <div class="step-block__step-num">02</div>
+          <span class="step-block__phase">Segundo paso</span>
+          <h2 class="step-block__title">Inscripción en el Registro Mercantil de Guatemala</h2>
+          <p class="step-block__text">
+            Con la escritura de constitución en mano, el siguiente paso es inscribir la sociedad ante el Registro Mercantil General de la República. Esta inscripción otorga personalidad jurídica plena a la empresa y le permite operar legalmente como ente comercial en Guatemala.
+          </p>
+          <div class="step-block__details">
+            <div class="step-detail">Se presenta la escritura de constitución ante el Registro Mercantil</div>
+            <div class="step-detail">El Registrador verifica el cumplimiento de los requisitos del Código de Comercio</div>
+            <div class="step-detail">Se emite la Patente de Comercio de Empresa como documento habilitante</div>
+            <div class="step-detail">La empresa queda inscrita en el libro de Empresas Mercantiles</div>
+            <div class="step-detail">Requisito obligatorio para poder inscribirse posteriormente en la SAT</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       PASO 3 — SAT / RTU
+  ════════════════════════════════════════ -->
+  <div class="steps-connector"><div class="steps-connector__dot">3</div></div>
+
+  <section class="steps-section" id="paso3" style="padding-top:0;">
+    <div class="container">
+      <div class="step-block fade-up">
+
+        <div class="step-block__info">
+          <div class="step-block__step-num">03</div>
+          <span class="step-block__phase">Tercer paso</span>
+          <h2 class="step-block__title">Inscripción en el Registro Tributario Unificado — SAT</h2>
+          <p class="step-block__text">
+            Una vez inscrita ante el Registro Mercantil, la empresa debe registrarse ante la Superintendencia de Administración Tributaria (SAT). Este paso asigna el Número de Identificación Tributaria (NIT) y habilita a la empresa para cumplir con sus obligaciones fiscales en Guatemala.
+          </p>
+          <div class="step-block__details">
+            <div class="step-detail">Se presenta la Patente de Comercio y la escritura de constitución ante la SAT</div>
+            <div class="step-detail">Se obtiene el NIT: número único de identificación tributaria</div>
+            <div class="step-detail">Se elige el régimen de ISR e IVA aplicable a la actividad</div>
+            <div class="step-detail">La constancia RTU Digital tiene plena validez legal como documento electrónico</div>
+            <div class="step-detail">Cualquier modificación de datos debe notificarse en 30 días hábiles</div>
+          </div>
+        </div>
+
+        <div class="step-block__doc">
+          <div class="doc-card__header">
+            <span class="doc-card__type">Documento oficial</span>
+            <h3 class="doc-card__title">Constancia RTU Digital — SAT</h3>
+          </div>
+          <div class="doc-card__body">
+            <div class="doc-field">
+              <span class="doc-field__label">NIT asignado</span>
+              <span class="doc-field__value doc-field__value--mono">12345678-9</span>
+            </div>
+            <div class="doc-field">
+              <span class="doc-field__label">Razón social</span>
+              <span class="doc-field__value">ÉLEVEN HOTEL SERVICES, SOCIEDAD ANÓNIMA</span>
+            </div>
+            <div class="doc-field">
+              <span class="doc-field__label">Tipo de contribuyente</span>
+              <span class="doc-field__value">Persona Jurídica</span>
+            </div>
+            <div class="doc-field">
+              <span class="doc-field__label">Actividad económica principal</span>
+              <span class="doc-field__value doc-field__value--mono">5510.01 — Hoteles con servicios de restaurante</span>
+            </div>
+            <div class="doc-field">
+              <span class="doc-field__label">Domicilio fiscal</span>
+              <span class="doc-field__value doc-field__value--mono">5ta Avenida 10-20, Zona 10, Guatemala</span>
+            </div>
+            <div class="doc-field">
+              <span class="doc-field__label">Fecha de constitución</span>
+              <span class="doc-field__value doc-field__value--mono">27/05/2026</span>
+            </div>
+            <div class="doc-field" style="border:none; padding:0;">
+              <span class="doc-field__label">Estado del contribuyente</span>
+              <span class="status-badge status-badge--active" style="margin-top:0.35rem;">Activo</span>
+            </div>
+          </div>
+          <div class="doc-card__stamp">
+            <span class="doc-card__stamp-icon">🔐</span>
+            <span class="doc-card__stamp-text">Documento electrónico con plena validez legal. Emitido el 27 de mayo de 2026 por la Superintendencia de Administración Tributaria.</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Tax regimes -->
+      <div class="fade-up" style="margin-top:4px;">
+        <div style="padding:2.5rem 3rem; background:var(--cream); border:1px solid var(--divider); margin-bottom:1.5rem;">
+          <p class="label">Regímenes tributarios</p>
+          <div class="divider-line"></div>
+          <h3>Obligaciones fiscales inscritas</h3>
+        </div>
+        <div class="tax-grid">
+          <div class="tax-card">
+            <span class="tax-card__icon">🧾</span>
+            <h4 class="tax-card__title">IVA</h4>
+            <span class="tax-card__regime">Régimen General</span>
+            <p class="tax-card__desc">Impuesto al Valor Agregado del 12% aplicable a todas las ventas de servicios. Declaraciones mensuales ante la SAT.</p>
+          </div>
+          <div class="tax-card">
+            <span class="tax-card__icon">📊</span>
+            <h4 class="tax-card__title">ISR</h4>
+            <span class="tax-card__regime">Régimen sobre Utilidades de Actividades Lucrativas</span>
+            <p class="tax-card__desc">Impuesto Sobre la Renta aplicado sobre las utilidades netas de la empresa. Pagos trimestrales con declaración anual.</p>
+          </div>
+          <div class="tax-card">
+            <span class="tax-card__icon">⚖️</span>
+            <h4 class="tax-card__title">ISO</h4>
+            <span class="tax-card__regime">Sujeto a la Ley del ISO</span>
+            <p class="tax-card__desc">Impuesto de Solidaridad aplicable conforme a la normativa guatemalteca para personas jurídicas activas.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       PASO 4 — FACTURA ELECTRÓNICA FEL
+  ════════════════════════════════════════ -->
+  <div class="steps-connector"><div class="steps-connector__dot">4</div></div>
+
+  <section class="steps-section section--alt" id="paso4" style="padding-top:0;">
+    <div class="container">
+      <div class="step-block fade-up">
+
+        <div class="step-block__doc">
+          <!-- Invoice preview -->
+          <div class="invoice-preview" style="margin:2.5rem;">
+            <div class="invoice-preview__header">
+              <span class="invoice-preview__logo">Éleven<span>.</span></span>
+              <span class="invoice-preview__badge">Factura FEL</span>
+            </div>
+            <div class="invoice-preview__body">
+              <div style="display:flex; justify-content:space-between; margin-bottom:1.5rem; flex-wrap:wrap; gap:1rem;">
+                <div>
+                  <span style="font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--bronze); display:block;">NIT Emisor</span>
+                  <span style="font-size:0.88rem; color:var(--slate); font-family:var(--font-body);">12345678-9</span>
+                </div>
+                <div>
+                  <span style="font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--bronze); display:block;">Serie / No.</span>
+                  <span style="font-size:0.88rem; color:var(--slate); font-family:var(--font-body);">A — 00000001</span>
+                </div>
+                <div>
+                  <span style="font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--bronze); display:block;">Fecha</span>
+                  <span style="font-size:0.88rem; color:var(--slate); font-family:var(--font-body);">27/05/2026</span>
+                </div>
+              </div>
+              <table class="invoice-table">
+                <thead>
+                  <tr>
+                    <th>Descripción</th>
+                    <th style="text-align:right;">Total (Q)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Noche de Hospedaje — Habitación Doble Estándar</td>
+                    <td style="text-align:right;">800.00</td>
+                  </tr>
+                  <tr>
+                    <td>Desayuno Buffet (2 personas)</td>
+                    <td style="text-align:right;">150.00</td>
+                  </tr>
+                  <tr>
+                    <td>Servicio de Lavandería</td>
+                    <td style="text-align:right;">50.00</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="invoice-totals">
+                <div class="invoice-total-row">
+                  <span>Subtotal</span>
+                  <span>Q 1,000.00</span>
+                </div>
+                <div class="invoice-total-row">
+                  <span>IVA (12%)</span>
+                  <span>Q 120.00</span>
+                </div>
+                <div class="invoice-total-row invoice-total-row--final">
+                  <span>Total a Pagar</span>
+                  <span>Q 1,120.00</span>
+                </div>
+              </div>
+              <div style="margin-top:1.25rem; padding:0.75rem 1rem; background:var(--cream); border-left:2px solid var(--teal);">
+                <span style="font-size:0.72rem; color:var(--teal);">✓ Autorizado por la SAT — Sujeto a pagos trimestrales ISR — Certificación No. 123456789012345</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-block__info">
+          <div class="step-block__step-num">04</div>
+          <span class="step-block__phase">Cuarto paso</span>
+          <h2 class="step-block__title">Habilitación de Factura Electrónica en Línea (FEL)</h2>
+          <p class="step-block__text">
+            El último paso es la habilitación del régimen de Factura Electrónica en Línea (FEL), obligatorio para todas las empresas en Guatemala. Este sistema, administrado por la SAT, permite emitir comprobantes de pago con validez legal de forma digital y en tiempo real.
+          </p>
+          <div class="step-block__details">
+            <div class="step-detail">La empresa se afilia al sistema FEL a través de un certificador autorizado por la SAT</div>
+            <div class="step-detail">Cada factura emitida se valida electrónicamente en tiempo real ante la SAT</div>
+            <div class="step-detail">Se genera un número de certificación único para cada documento</div>
+            <div class="step-detail">La primera factura de Éleven lleva la Serie A, No. 00000001</div>
+            <div class="step-detail">El IVA del 12% queda registrado automáticamente para declaraciones mensuales</div>
+          </div>
+          <div style="margin-top:2rem; padding:1.25rem 1.5rem; background:var(--cream); border:1px solid var(--divider);">
+            <span style="font-size:0.62rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--bronze); display:block; margin-bottom:0.4rem;">Certificación SAT</span>
+            <span style="font-family:var(--font-body); font-size:0.85rem; color:var(--slate); word-break:break-all;">No. 123456789012345</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SUMMARY CLOSE -->
+  <section class="section" style="background:var(--teal); padding:var(--spacing-lg) 0;">
+    <div class="container">
+      <div style="text-align:center;" class="fade-up">
+        <p class="label" style="color:var(--bronze-light);">Proceso completado</p>
+        <div class="divider-line divider-line--center" style="background:var(--bronze-light);"></div>
+        <h2 style="color:var(--cream-light); max-width:600px; margin:0 auto 1.5rem;">
+          Éleven Hotel Services, S.A. opera con plena validez legal en Guatemala
+        </h2>
+        <p style="color:rgba(245,240,232,0.65); max-width:520px; margin:0 auto 2.5rem;">
+          Los cuatro pasos del proceso de constitución han sido completados satisfactoriamente. La empresa está habilitada para celebrar contratos, emitir facturas y prestar servicios profesionales hoteleros en todo el territorio nacional.
+        </p>
+        <a href="../index.html#servicios" class="btn btn--outline" style="color:var(--cream-light); border-color:rgba(168,137,92,0.5);">
+          Ver nuestros servicios →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__logo">Éleven<span>.</span></div>
+          <p class="footer__desc">Servicios profesionales para la industria hotelera de Guatemala.</p>
+        </div>
+        <div>
+          <p class="footer__heading">Departamentos</p>
+          <ul class="footer__links">
+            <li><a href="grupo1.html">Habitaciones</a></li>
+            <li><a href="grupo2.html">Recepción & Lobby</a></li>
+            <li><a href="grupo3.html">Restaurante</a></li>
+            <li><a href="grupo4.html">Cocina & Producción</a></li>
+            <li><a href="grupo5.html">Entretenimiento</a></li>
+            <li><a href="grupo6.html">Área Verde & Piscina</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer__heading">Legal</p>
+          <ul class="footer__links">
+            <li><a href="#paso1">Escritura de Constitución</a></li>
+            <li><a href="#paso2">Registro Mercantil</a></li>
+            <li><a href="#paso3">SAT / RTU</a></li>
+            <li><a href="#paso4">Factura Electrónica FEL</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>© 2026 Éleven Hotel Services, S.A. — Constitución Legal</span>
+        <span>Universidad Mariano Gálvez — Proceso Administrativo</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/global.js"></script>
+</body>
+</html>
