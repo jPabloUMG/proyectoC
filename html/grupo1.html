@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Departamento de Habitaciones - Chimaltenango</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* Estilos Globales - Paleta Ultra Premium Oscura */
+        :root {
+            --oro: #947449;
+            --oro-brillante: #b8986c;
+            --negro-fondo: #0a0a0a;
+            --negro-tarjeta: #121212;
+            --gris-borde: #1f1f1f;
+            --gris-texto: #b3b3b3;
+            --blanco: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: var(--negro-fondo);
+            color: var(--blanco);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- MENÚ DE NAVEGACIÓN --- */
+        nav {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+        }
+
+        .logo {
+            font-family: 'Cinzel', serif;
+            font-size: 18px;
+            letter-spacing: 2px;
+            line-height: 1.2;
+        }
+        .logo span {
+            color: var(--oro);
+            display: block;
+            font-size: 11px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--blanco);
+            text-decoration: none;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 400;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--oro);
+        }
+
+        .btn-nav-reserve {
+            border: 1px solid var(--oro);
+            padding: 10px 20px;
+            background: transparent;
+            color: var(--blanco);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-nav-reserve:hover {
+            background-color: var(--oro);
+        }
+
+        /* --- HERO SECCIÓN (BIENVENIDA) --- */
+        .hero {
+            height: 100vh;
+            position: relative;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(10, 10, 10, 1)), 
+                              url('https://images.unsplash.com/photo-1540518614846-7eded433c457?q=80&w=1600&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 8%;
+        }
+
+        .hero-content {
+            max-width: 650px;
+            margin-top: 50px;
+        }
+
+        .hero h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 48px;
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .hero h1 span {
+            color: var(--oro);
+        }
+
+        .hero p {
+            color: var(--gris-texto);
+            font-size: 14px;
+            margin-bottom: 35px;
+            letter-spacing: 0.5px;
+            font-weight: 300;
+        }
+
+        .btn-hero {
+            background: transparent;
+            color: var(--blanco);
+            border: 1px solid var(--blanco);
+            padding: 12px 30px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-hero:hover {
+            background-color: var(--blanco);
+            color: var(--negro-fondo);
+        }
+
+        /* --- SECCIÓN HABITACIONES --- */
+        .rooms-section {
+            padding: 80px 8%;
+            background-color: var(--negro-fondo);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 50px;
+            border-bottom: 1px solid var(--gris-borde);
+            padding-bottom: 20px;
+        }
+
+        .subtitle {
+            color: var(--oro);
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .section-header h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 32px;
+            font-weight: 400;
+        }
+
+        .section-header p {
+            color: var(--gris-texto);
+            max-width: 400px;
+            font-size: 13px;
+            font-weight: 300;
+        }
+
+        .rooms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .room-card {
+            background-color: var(--negro-tarjeta);
+            border: 1px solid var(--gris-borde);
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .room-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--oro);
+        }
+
+        .room-img {
+            width: 100%;
+            height: 240px;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.5s;
+        }
+
+        .room-card:hover .room-img {
+            transform: scale(1.05);
+        }
+
+        /* Imágenes de habitaciones de lujo montañesas/acogedoras */
+        .img-suite { background-image: url('https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=600&auto=format&fit=crop'); }
+        .img-presidential { background-image: url('https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=600&auto=format&fit=crop'); }
+        .img-royal { background-image: url('https://images.unsplash.com/photo-1566665797739-1674de7a421a?q=80&w=600&auto=format&fit=crop'); }
+        .img-deluxe { background-image: url('https://images.unsplash.com/photo-1591088398332-8a7791972843?q=80&w=600&auto=format&fit=crop'); }
+        .img-standard { background-image: url('https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=600&auto=format&fit=crop'); }
+
+        .room-info {
+            padding: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .room-capacity {
+            font-size: 10px;
+            color: var(--gris-texto);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .room-name {
+            font-family: 'Cinzel', serif;
+            font-size: 18px;
+            font-weight: 400;
+        }
+
+        .room-price-box {
+            text-align: right;
+        }
+
+        .price-label {
+            font-size: 10px;
+            color: var(--gris-texto);
+            text-transform: uppercase;
+        }
+
+        .room-price {
+            font-size: 16px;
+            color: var(--oro-brillante);
+            font-weight: 500;
+        }
+
+        /* Bloque Especial de Hospitalidad */
+        .hospitality-card {
+            background-color: var(--negro-tarjeta);
+            border: 1px solid var(--gris-borde);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hospitality-icon {
+            color: var(--oro);
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .hospitality-card h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 22px;
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+
+        .hospitality-card p {
+            color: var(--gris-texto);
+            font-size: 13px;
+            line-height: 1.8;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+
+        .hospitality-card a {
+            color: var(--oro-brillante);
+            text-decoration: none;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        /* --- NUEVA SECCIÓN: NUESTRO EQUIPO --- */
+        .team-section {
+            padding: 80px 8%;
+            background-color: var(--negro-fondo);
+            border-top: 1px solid var(--gris-borde);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .team-card {
+            background-color: var(--negro-tarjeta);
+            border: 1px solid var(--gris-borde);
+            padding: 30px 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .team-card:hover {
+            border-color: var(--oro);
+            transform: translateY(-3px);
+        }
+
+        .team-icon-wrapper {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: rgba(148, 116, 73, 0.1);
+            border: 1px solid rgba(148, 116, 73, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: var(--oro-brillante);
+            font-size: 22px;
+        }
+
+        .team-card h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+            color: var(--blanco);
+        }
+
+        .team-role {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--oro);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .team-desc {
+            color: var(--gris-texto);
+            font-size: 12.5px;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        /* --- SECCIÓN CALENDARIO Y RESERVAS --- */
+        .booking-section {
+            padding: 80px 8%;
+            background-color: #0d0d0d;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 50px;
+            align-items: center;
+            border-top: 1px solid var(--gris-borde);
+        }
+
+        .booking-text h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 36px;
+            font-weight: 400;
+            margin-bottom: 30px;
+            line-height: 1.3;
+        }
+
+        .booking-features {
+            list-style: none;
+        }
+
+        .booking-features li {
+            margin-bottom: 15px;
+            font-size: 13px;
+            color: var(--gris-texto);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .booking-features li::before {
+            content: '✓';
+            color: var(--oro);
+            font-weight: bold;
+        }
+
+        .booking-container {
+            background-color: var(--negro-tarjeta);
+            border: 1px solid var(--gris-borde);
+            padding: 35px;
+            border-radius: 4px;
+        }
+
+        .booking-inputs {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .input-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-item label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gris-texto);
+            margin-bottom: 8px;
+        }
+
+        .input-item input, .input-item select {
+            background-color: var(--negro-fondo);
+            border: 1px solid var(--gris-borde);
+            padding: 12px;
+            color: var(--blanco);
+            outline: none;
+            font-size: 12px;
+            transition: border-color 0.3s;
+        }
+
+        .input-item input:focus, .input-item select:focus {
+            border-color: var(--oro);
+        }
+
+        /* Simulación Calendario Visual Dual de la Imagen */
+        .calendar-mockup {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            background-color: var(--negro-fondo);
+            border: 1px solid var(--gris-borde);
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .month-box {
+            text-align: center;
+        }
+
+        .month-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--oro);
+            margin-bottom: 15px;
+        }
+
+        .days-grid-header {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            font-size: 9px;
+            color: var(--gris-texto);
+            margin-bottom: 8px;
+        }
+
+        .days-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            font-size: 10px;
+        }
+
+        .days-grid span {
+            padding: 5px 0;
+            color: #444;
+            cursor: pointer;
+        }
+
+        .days-grid span.active-day {
+            color: var(--blanco);
+        }
+
+        .days-grid span.selected-range {
+            background-color: rgba(148, 116, 73, 0.2);
+            color: var(--oro-brillante);
+            border-radius: 2px;
+        }
+
+        .days-grid span.selected-edge {
+            background-color: var(--oro);
+            color: var(--blanco);
+            border-radius: 2px;
+            font-weight: bold;
+        }
+
+        .btn-check-availability {
+            width: 100%;
+            background-color: var(--oro);
+            color: var(--blanco);
+            border: none;
+            padding: 15px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-check-availability:hover {
+            background-color: var(--oro-brillante);
+        }
+
+        /* --- SECCIÓN MAPA Y UBICACIÓN --- */
+        .location-section {
+            padding: 80px 8%;
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 50px;
+            align-items: center;
+            border-top: 1px solid var(--gris-borde);
+        }
+
+        .location-info h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 32px;
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+
+        .location-info p {
+            color: var(--gris-texto);
+            font-size: 13px;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .location-details {
+            font-size: 12px;
+            color: var(--blanco);
+        }
+
+        .location-details div {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .location-details i {
+            color: var(--oro);
+            font-size: 14px;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Mapa Estilizado Ultra-Premium Solucionado */
+        .map-container {
+            width: 100%;
+            height: 350px;
+            border: 1px solid var(--gris-borde);
+            background-image: url('https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=800&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .map-overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.65);
+            z-index: 1;
+        }
+
+        .map-content {
+            position: relative;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .map-content i {
+            font-size: 45px;
+            color: var(--oro-brillante);
+            margin-bottom: 20px;
+            display: block;
+            animation: bounce 2s infinite;
+        }
+
+        .btn-mapa {
+            color: var(--blanco);
+            text-decoration: none;
+            border: 1px solid var(--oro);
+            padding: 12px 25px;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: rgba(10, 10, 10, 0.9);
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .btn-mapa:hover {
+            background: var(--oro);
+            color: var(--blanco);
+            box-shadow: 0 0 15px rgba(148, 116, 73, 0.4);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #050505;
+            padding: 60px 8% 30px;
+            border-top: 1px solid var(--gris-borde);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h4 {
+            font-family: 'Cinzel', serif;
+            font-size: 14px;
+            color: var(--oro);
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a {
+            color: var(--gris-texto);
+            text-decoration: none;
+            font-size: 12px;
+            transition: color 0.3s;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--blanco);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--gris-borde);
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">
+            DEPARTAMENTO DE HABITACIONES
+            <span>CHIMALTENANGO, GUATEMALA</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#" class="active">Habitaciones</a></li>
+            <li><a href="#equipo">Equipo</a></li>
+            <li><a href="#reservar">Reservas</a></li>
+            <li><a href="#ubicacion">Ubicación</a></li>
+            <li><a href="#">Experiencias</a></li>
+            <li><a href="#">Nosotros</a></li>
+        </ul>
+        <button class="btn-nav-reserve" onclick="irAReservar()">Reservar Ahora</button>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h5 class="subtitle">NUESTRAS HABITACIONES</h5>
+            <h1>Tu estancia excepcional en el corazón de <span>Chimaltenango</span></h1>
+            <p>Seis habitaciones únicas. Confort refinado. Hospitalidad guatemalteca con categoría 5 estrellas.</p>
+            <button class="btn-hero" onclick="irAReservar()">Reservar Ahora ➔</button>
+        </div>
+    </header>
+
+    <main class="rooms-section">
+        <div class="section-header">
+            <div>
+                <h5 class="subtitle">NUESTRAS HABITACIONES</h5>
+                <h2>Seis espacios.<br>Una experiencia inolvidable.</h2>
+            </div>
+            <div>
+                <p>Cada habitación ha sido diseñada para ofrecer descanso, elegancia y una conexión auténtica con Chimaltenango.</p>
+            </div>
+        </div>
+
+        <div class="rooms-grid">
+            <div class="room-card" onclick="seleccionarHabitacion('Suite', 1250)">
+                <div class="room-img img-suite"></div>
+                <div class="room-info">
+                    <div>
+                        <p class="room-capacity">1 Habitación</p>
+                        <h3 class="room-name">Suite</h3>
+                    </div>
+                    <div class="room-price-box">
+                        <p class="price-label">Desde</p>
+                        <p class="room-price">Q 1,250 / Noche</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="room-card" onclick="seleccionarHabitacion('Presidential Suite', 2200)">
+                <div class="room-img img-presidential"></div>
+                <div class="room-info">
+                    <div>
+                        <p class="room-capacity">1 Habitación</p>
+                        <h3 class="room-name">Presidential Suite</h3>
+                    </div>
+                    <div class="room-price-box">
+                        <p class="price-label">Desde</p>
+                        <p class="room-price">Q 2,200 / Noche</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="room-card" onclick="seleccionarHabitacion('Royal Suite', 1850)">
+                <div class="room-img img-royal"></div>
+                <div class="room-info">
+                    <div>
+                        <p class="room-capacity">1 Habitación</p>
+                        <h3 class="room-name">Royal Suite</h3>
+                    </div>
+                    <div class="room-price-box">
+                        <p class="price-label">Desde</p>
+                        <p class="room-price">Q 1,850 / Noche</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="room-card" onclick="seleccionarHabitacion('Deluxe Room', 950)">
+                <div class="room-img img-deluxe"></div>
+                <div class="room-info">
+                    <div>
+                        <p class="room-capacity">2 Habitaciones</p>
+                        <h3 class="room-name">Deluxe Room</h3>
+                    </div>
+                    <div class="room-price-box">
+                        <p class="price-label">Desde</p>
+                        <p class="room-price">Q 950 / Noche</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="room-card" onclick="seleccionarHabitacion('Standard Room', 650)">
+                <div class="room-img img-standard"></div>
+                <div class="room-info">
+                    <div>
+                        <p class="room-capacity">2 Habitaciones</p>
+                        <h3 class="room-name">Standard Room</h3>
+                    </div>
+                    <div class="room-price-box">
+                        <p class="price-label">Desde</p>
+                        <p class="room-price">Q 650 / Noche</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hospitality-card">
+                <div class="hospitality-icon"><i class="fa-solid fa-bell"></i></div>
+                <h3>Hospitalidad que se siente</h3>
+                <p>Atención personalizada, desayuno incluido y amenidades premium para que te sientas como en casa.</p>
+                <a href="#reservar">Conoce Más ➔</a>
+            </div>
+        </div>
+    </main>
+
+    <section class="team-section" id="equipo">
+        <div class="section-header">
+            <div>
+                <h5 class="subtitle">PROFESIONALES A TU SERVICIO</h5>
+                <h2>Nuestro Equipo Excepcional</h2>
+            </div>
+            <div>
+                <p>Conoce a las mentes y manos expertas dedicadas a garantizar una estancia perfecta y un confort de categoría internacional.</p>
+            </div>
+        </div>
+
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-icon-wrapper"><i class="fa-solid fa-user-tie"></i></div>
+                <h3>Ricardo Larios</h3>
+                <div class="team-role">Gerente General</div>
+                <p class="team-desc">A cargo de la dirección del departamento de habitaciones, asegurando los más altos estándares de calidad y excelencia operativa.</p>
+            </div>
+
+            <div class="team-card">
+                <div class="team-icon-wrapper"><i class="fa-solid fa-clipboard-check"></i></div>
+                <h3>Luis Coc</h3>
+                <div class="team-role">Supervisor</div>
+                <p class="team-desc">Responsable de coordinar y estar al tanto de todas las tareas operativas cotidianas para que todo funcione de manera impecable.</p>
+            </div>
+
+            <div class="team-card">
+                <div class="team-icon-wrapper"><i class="fa-solid fa-tray"></i></div>
+                <h3>Angel Capen</h3>
+                <div class="team-role">Servicio de Habitaciones</div>
+                <p class="team-desc">Dedicado por completo a atender de inmediato cada una de las solicitudes de nuestros huéspedes, garantizando confort a su servicio en todo momento.</p>
+            </div>
+
+            <div class="team-card">
+                <div class="team-icon-wrapper"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                <h3>Heber Sotz</h3>
+                <div class="team-role">Personal de Mantenimiento</div>
+                <p class="team-desc">Encargado de preservar las sofisticadas instalaciones e infraestructura del complejo en óptimas condiciones de funcionamiento.</p>
+            </div>
+
+            <div class="team-card">
+                <div class="team-icon-wrapper"><i class="fa-solid fa-door-open"></i></div>
+                <h3>Julio Ticas</h3>
+                <div class="team-role">Botón Principal</div>
+                <p class="team-desc">Su función es brindar una cálida bienvenida, transportar de forma segura tu equipaje y facilitarte información útil para tu estancia.</p>
+            </div>
+
+            <div class="team-card">
+                <div class="team-icon-wrapper"><i class="fa-solid fa-sparkles"></i></div>
+                <h3>Horlando Orellana</h3>
+                <div class="team-role">Camarista</div>
+                <p class="team-desc">Encargado de mantener la estética, el orden, las habitaciones, los pasillos y las áreas de servicio con una limpieza impecable.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="booking-section" id="reservar">
+        <div class="booking-text">
+            <h5 class="subtitle">RESERVA DIRECTA</h5>
+            <h2>Tu próxima estancia está a un clic</h2>
+            <ul class="booking-features">
+                <li>Mejor tarifa garantizada</li>
+                <li>Sin cargos ocultos</li>
+                <li>Confirmación inmediata</li>
+                <li>Atención personalizada 24/7</li>
+            </ul>
+        </div>
+
+        <div class="booking-container">
+            <div class="booking-inputs">
+                <div class="input-item">
+                    <label for="checkin">Check-In</label>
+                    <input type="date" id="checkin">
+                </div>
+                <div class="input-item">
+                    <label for="checkout">Check-Out</label>
+                    <input type="date" id="checkout">
+                </div>
+                <div class="input-item">
+                    <label for="room-select">Habitaciones / Huéspedes</label>
+                    <select id="room-select">
+                        <option value="Suite">1 Habitación, 2 Adultos</option>
+                        <option value="Presidential Suite">Presidential Suite, 2 Adultos</option>
+                        <option value="Royal Suite">Royal Suite, 2 Adultos</option>
+                        <option value="Deluxe Room">Deluxe Room, 2 Adultos</option>
+                        <option value="Standard Room">Standard Room, 1 Adulto</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="calendar-mockup">
+                <div class="month-box">
+                    <div class="month-title">Mayo 2026</div>
+                    <div class="days-grid-header">
+                        <span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span><span>D</span>
+                    </div>
+                    <div class="days-grid">
+                        <span></span><span></span><span></span><span>1</span><span>2</span><span>3</span><span>4</span>
+                        <span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span>
+                        <span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span>
+                        <span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span>
+                        <span>26</span><span class="selected-edge">27</span><span class="selected-range">28</span><span class="selected-range">29</span><span class="selected-range">30</span><span class="selected-edge">31</span>
+                    </div>
+                </div>
+                <div class="month-box">
+                    <div class="month-title">Junio 2026</div>
+                    <div class="days-grid-header">
+                        <span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span><span>D</span>
+                    </div>
+                    <div class="days-grid">
+                        <span class="active-day">1</span><span class="active-day">2</span><span class="active-day">3</span><span class="active-day">4</span><span class="active-day">5</span><span class="active-day">6</span><span class="active-day">7</span>
+                        <span class="active-day">8</span><span class="active-day">9</span><span class="active-day">10</span><span class="active-day">11</span><span class="active-day">12</span><span class="active-day">13</span><span class="active-day">14</span>
+                        <span class="active-day">15</span><span class="active-day">16</span><span class="active-day">17</span><span class="active-day">18</span><span class="active-day">19</span><span class="active-day">20</span><span class="active-day">21</span>
+                        <span class="active-day">22</span><span class="active-day">23</span><span class="active-day">24</span><span class="active-day">25</span><span class="active-day">26</span><span class="active-day">27</span><span class="active-day">28</span>
+                        <span class="active-day">29</span><span class="active-day">30</span>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn-check-availability" onclick="procesarReserva()">Ver Disponibilidad</button>
+        </div>
+    </section>
+
+    <section class="location-section" id="ubicacion">
+        <div class="location-info">
+            <h5 class="subtitle">NUESTRA UBICACIÓN</h5>
+            <h2>Descubre Chimaltenango</h2>
+            <p>Ubicados en el corazón del departamento, cerca de los principales atractivos culturales, naturales y gastronómicos de la región.</p>
+            <div class="location-details">
+                <div><i class="fa-solid fa-location-dot"></i> 2a Calle 3-21, Zona 1 Chimaltenango, Guatemala</div>
+                <div><i class="fa-solid fa-clock"></i> A 1 hora de la Ciudad de Guatemala</div>
+            </div>
+        </div>
+        <div class="map-container">
+            <div class="map-overlay"></div>
+            <div class="map-content">
+                <i class="fa-solid fa-location-pin"></i>
+                <a href="https://maps.google.com/?q=2a+Calle+3-21+Zona+1+Chimaltenango+Guatemala" target="_blank" class="btn-mapa">
+                    Abrir Mapa de Ubicación ➔
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Enlaces</h4>
+                <ul>
+                    <li><a href="#">Habitaciones</a></li>
+                    <li><a href="#equipo">Equipo</a></li>
+                    <li><a href="#reservar">Reservas</a></li>
+                    <li><a href="#ubicacion">Ubicación</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Información</h4>
+                <ul>
+                    <li><a href="#">Políticas</a></li>
+                    <li><a href="#">Términos y condiciones</a></li>
+                    <li><a href="#">Preguntas frecuentes</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contacto</h4>
+                <ul>
+                    <li><a href="tel:+50223333000"><i class="fa-solid fa-phone" style="font-size: 11px; color: var(--oro); margin-right: 5px;"></i> +502 2333-3000</a></li>
+                    <li><a href="mailto:info@habitacioneschimaltenango.com"><i class="fa-solid fa-envelope" style="font-size: 11px; color: var(--oro); margin-right: 5px;"></i> info@habitacioneschimaltenango.com</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Departamento de Habitaciones. Todos los derechos reservados.</p>
+            <p>Hecho en Guatemala ♡</p>
+        </div>
+    </footer>
+
+    <script>
+        // Fechas actuales automáticas
+        window.onload = function() {
+            const hoy = new Date();
+            const mañana = new Date(hoy);
+            mañana.setDate(mañana.getDate() + 4); 
+
+            document.getElementById('checkin').value = hoy.toISOString().split('T')[0];
+            document.getElementById('checkout').value = mañana.toISOString().split('T')[0];
+        }
+
+        function irAReservar() {
+            document.getElementById('reservar').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function seleccionarHabitacion(nombre, precio) {
+            document.getElementById('room-select').value = nombre;
+            irAReservar();
+            alert(`Has seleccionado la habitación: ${nombre}.\nEl rango estimado es desde Q ${precio} por noche.\n\nPor favor confirma tus fechas en el formulario de reserva.`);
+        }
+
+        function procesarReserva() {
+            const entrada = document.getElementById('checkin').value;
+            const salida = document.getElementById('checkout').value;
+            const tipo = document.getElementById('room-select').value;
+
+            if(!entrada || !salida) {
+                alert("Por favor selecciona las fechas deseadas.");
+                return;
+            }
+
+            alert(`✨ Solicitud Recibida (Simulación 5 Estrellas) ✨\n\nHabitación: ${tipo}\nCheck-in: ${entrada}\nCheck-out: ${salida}\n\nEstamos verificar la disponibilidad exacta en el sistema.`);
+        }
+    </script>
+</body>
+</html>
