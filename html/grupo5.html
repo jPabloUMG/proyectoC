@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Entretenimiento & Bienestar — Éleven Hotel Services</title>
+
+<style>
+
+:root {
+  --teal: #1f4d4d;
+  --bronze: #b08d57;
+  --bronze-light: #d4b483;
+  --cream-light: #f8f5f0;
+  --cream: #ece6dc;
+  --charcoal: #222;
+  --slate: #555;
+  --slate-light: #777;
+  --divider: #ddd;
+  --white: #fff;
+
+  --spacing-md: 2rem;
+  --spacing-lg: 4rem;
+
+  --font-display: Georgia, serif;
+  --font-body: Arial, sans-serif;
+
+  --transition: all 0.3s ease;
+
+  --shadow-card: 0 10px 25px rgba(0,0,0,0.1);
+  --shadow-soft: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:var(--font-body);
+  background:var(--cream-light);
+  color:var(--charcoal);
+  line-height:1.6;
+}
+
+.container{
+  width:90%;
+  max-width:1200px;
+  margin:auto;
+}
+
+.section{
+  padding:5rem 0;
+}
+
+.section--alt{
+  background:white;
+}
+
+.nav{
+  background:var(--teal);
+  padding:1rem 2rem;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.nav a{
+  color:white;
+  text-decoration:none;
+  margin-left:1rem;
+}
+
+.nav__logo{
+  color:white;
+  font-size:2rem;
+  font-family:var(--font-display);
+}
+
+.page-hero{
+  height:75vh;
+  background:var(--teal);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:2rem;
+}
+
+.page-hero__title{
+  font-size:4rem;
+  color:white;
+  font-family:var(--font-display);
+}
+
+.page-hero__title em{
+  color:var(--bronze-light);
+}
+
+.label{
+  color:var(--bronze);
+  text-transform:uppercase;
+  letter-spacing:3px;
+  margin-bottom:1rem;
+}
+
+.divider-line{
+  width:80px;
+  height:2px;
+  background:var(--bronze);
+  margin-bottom:1.5rem;
+}
+
+.services-featured{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:1rem;
+}
+
+.service-featured-card{
+  background:white;
+  padding:2rem;
+  border-radius:10px;
+  box-shadow:var(--shadow-soft);
+  transition:0.3s;
+}
+
+.service-featured-card:hover{
+  transform:translateY(-5px);
+}
+
+.service-featured-card__title{
+  margin:1rem 0;
+  font-size:1.3rem;
+}
+
+.supervisor-card{
+  background:var(--teal);
+  color:white;
+  padding:3rem;
+  border-radius:10px;
+  margin-top:2rem;
+}
+
+.workers__grid{
+  margin-top:2rem;
+}
+
+.worker-card{
+  background:white;
+  padding:2rem;
+  border-radius:10px;
+  box-shadow:var(--shadow-soft);
+}
+
+.process-timeline{
+  margin-top:2rem;
+}
+
+.timeline-item{
+  margin-bottom:2rem;
+}
+
+.timeline-item__title{
+  color:var(--teal);
+  margin-bottom:0.5rem;
+}
+
+.report-strip{
+  background:var(--charcoal);
+  color:white;
+  padding:5rem 0;
+}
+
+.report-strip__grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:1rem;
+}
+
+.report-item{
+  background:#2c2c2c;
+  padding:2rem;
+  border-radius:10px;
+}
+
+.footer{
+  background:#111;
+  color:white;
+  padding:3rem 0;
+}
+
+.footer__grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:2rem;
+}
+
+.footer__logo{
+  font-size:2rem;
+  font-family:var(--font-display);
+}
+
+.footer__links{
+  list-style:none;
+}
+
+.footer__links li{
+  margin-bottom:0.5rem;
+}
+
+.footer__links a{
+  color:white;
+  text-decoration:none;
+}
+
+.footer__bottom{
+  margin-top:2rem;
+  border-top:1px solid #333;
+  padding-top:1rem;
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+}
+
+@media(max-width:768px){
+  .page-hero__title{
+    font-size:2.5rem;
+  }
+
+  .footer__bottom{
+    flex-direction:column;
+    gap:1rem;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<nav class="nav">
+  <a href="../index.html">← Volver al inicio</a>
+
+  <div class="nav__logo">
+    Éleven.
+  </div>
+
+  <div>
+    <a href="#servicios">Servicios</a>
+    <a href="#equipo">Equipo</a>
+    <a href="#proceso">Proceso</a>
+    <a href="#reportes">Reportes</a>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div>
+    <p class="label">Departamento de Entretenimiento</p>
+
+    <h1 class="page-hero__title">
+      Bienestar y recreación <br>
+      con <em>distinción y estilo</em>
+    </h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+
+    <p class="label">Quiénes somos</p>
+    <div class="divider-line"></div>
+
+    <h2>El entretenimiento como experiencia</h2>
+
+    <p style="margin-top:20px;">
+      El departamento de entretenimiento es el corazón de la vida social del hotel.
+    </p>
+
+  </div>
+</section>
+
+<section class="section section--alt" id="servicios">
+
+  <div class="container">
+
+    <p class="label">Servicios</p>
+    <div class="divider-line"></div>
+
+    <div class="services-featured">
+
+      <div class="service-featured-card">
+        <h3 class="service-featured-card__title">Spa & Masajes</h3>
+        <p>Tratamientos corporales y relajación.</p>
+      </div>
+
+      <div class="service-featured-card">
+        <h3 class="service-featured-card__title">Salón de Belleza</h3>
+        <p>Servicios de estética completos.</p>
+      </div>
+
+      <div class="service-featured-card">
+        <h3 class="service-featured-card__title">Yoga & Meditación</h3>
+        <p>Clases guiadas para relajación.</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section class="section" id="equipo">
+
+  <div class="container">
+
+    <p class="label">Nuestro equipo</p>
+    <div class="divider-line"></div>
+
+    <div class="supervisor-card">
+      <h2>Aydeli Acuta</h2>
+      <p>Encargada de Entretenimiento & Bienestar</p>
+    </div>
+
+    <div class="workers__grid">
+
+      <div class="worker-card">
+        <h3>Josue Menchu</h3>
+        <p>Instructor de Fitness</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section class="section section--alt" id="proceso">
+
+  <div class="container">
+
+    <p class="label">Proceso</p>
+    <div class="divider-line"></div>
+
+    <div class="process-timeline">
+
+      <div class="timeline-item">
+        <h3 class="timeline-item__title">Planeación</h3>
+        <p>Programación de actividades y eventos.</p>
+      </div>
+
+      <div class="timeline-item">
+        <h3 class="timeline-item__title">Organización</h3>
+        <p>Distribución de responsabilidades.</p>
+      </div>
+
+      <div class="timeline-item">
+        <h3 class="timeline-item__title">Dirección</h3>
+        <p>Supervisión de actividades y atención.</p>
+      </div>
+
+      <div class="timeline-item">
+        <h3 class="timeline-item__title">Control</h3>
+        <p>Evaluación de satisfacción y reportes.</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section class="report-strip" id="reportes">
+
+  <div class="container">
+
+    <div class="report-strip__grid">
+
+      <div class="report-item">
+        <h3>Informes semanales</h3>
+      </div>
+
+      <div class="report-item">
+        <h3>Agenda de eventos</h3>
+      </div>
+
+      <div class="report-item">
+        <h3>Evaluación de huéspedes</h3>
+      </div>
+
+      <div class="report-item">
+        <h3>Control de inventario</h3>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<footer class="footer">
+
+  <div class="container">
+
+    <div class="footer__grid">
+
+      <div>
+        <div class="footer__logo">Éleven.</div>
+        <p>Servicios profesionales para la industria hotelera de Guatemala.</p>
+      </div>
+
+      <div>
+        <h3>Departamentos</h3>
+
+        <ul class="footer__links">
+          <li><a href="#">Habitaciones</a></li>
+          <li><a href="#">Recepción & Lobby</a></li>
+          <li><a href="#">Restaurante</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3>Navegación</h3>
+
+        <ul class="footer__links">
+          <li><a href="#">Inicio</a></li>
+          <li><a href="#">Nosotros</a></li>
+          <li><a href="#">Contacto</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer__bottom">
+      <span>© 2026 Éleven Hotel Services, S.A.</span>
+      <span>Universidad Mariano Gálvez</span>
+    </div>
+
+  </div>
+
+</footer>
+
+</body>
+</html>
